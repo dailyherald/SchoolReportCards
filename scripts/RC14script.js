@@ -596,12 +596,24 @@ $("#11sciSHOW").click(function () {
   });
 
 
+$('#perctesta').html(
+'<p class="Ppadding"><strong>Percent of students not tested</strong></p>' + 
+'<table class="table table-hover table-striped table-condensed"><thead>' + 
+'<thead><tr><th>SUBJECT</th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
+'<tr><td>Reading</td><td class="text-right">' + json[0].nttkreadsch + '</td><td class="text-right">'+ json[0].nttkreaddist + '</td><td class="text-right">' + json[0].nttkreadstate + '</td></tr>' + 
+'<tr><td>Math</td><td class="text-right">' + json[0].nttkmathschool + '</td><td class="text-right">'+ json[0].nttkmathdist + '</td><td class="text-right">' + json[0].nttkmathstate + '</td></tr>' + 
+'<tr><td>Science</td><td class="text-right">' + json[0].nttkscischool + '</td><td class="text-right">'+ json[0].nttkscidist + '</td><td class="text-right">' + json[0].nttkscistate + '</td></tr>' + 
+'</tbody></table>'
+);
+
+
+
 //-----------------------------------------
 // Here's the Finanicals section
 
 $('#salary').html(
 '<table class="table table-hover table-striped table-condensed">' + 
-'<tbody><tr><td><strong>SALARY</strong></td><td class="text-right"><strong>DISTRICT</strong></td><td class="text-right"><strong>STATE</strong></td></tr>' +
+'<thead><tr><th>SALARY</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
 '<tr><td>Avg. teacher</td><td class="text-right">' + json[0].teachsaldist + '</td><td class="text-right">' + json[0].teachsalstate + '</td></tr>' + 
 '<tr><td>Avg. administrator</td><td class="text-right">' + json[0].adminsaldist + '</td><td class="text-right">' + json[0].adminsalstate + '</td></tr>' + 
 '<tr><td><strong>PER PUPIL SPENDING</strong></td><td class="text-right"><strong>DISTRICT</strong></td><td class="text-right"><strong>STATE</strong></td></tr>' +
@@ -715,9 +727,288 @@ $('#budget').html(
 );
 
 
+
+//________________________________________
+// THIS IS THE SECTION FOR DEMOGRAPHIC INFORMATION
+
+
+// The students charting info
+
+var schDEMwhite = parseFloat(json[0].demschoolwhite);
+var schDEMblack = parseFloat(json[0].demschoolblack);
+var schDEMhisp = parseFloat(json[0].demschoolhisp);
+var schDEMasian = parseFloat(json[0].demschoolasian);
+var schDEMmulti = parseFloat(json[0].demschoolmulti);
+var schDEMnatam = parseFloat(json[0].demschoolnatam);
+var schDEMnathaw = parseFloat(json[0].demschoolnathaw);
+
+var chartDEMsch = new Highcharts.Chart({
+  chart: {
+    renderTo: 'DEMchartSCH',
+    spacingBottom: 15,
+    spacingTop: 10,
+    spacingLeft: 10,
+    spacingRight: 10,
+    width: null,
+    height: 350,
+        type: 'pie'
+  },
+  plotOptions: {
+     pie: {
+       dataLabels: {
+        enabled: false
+      }
+    }
+  },
+  title: {
+      text: 'School'
+  },
+  series: [{
+    name: 'School',
+    data: [
+        ['White', schDEMwhite],
+        ['Black', schDEMblack],
+        ['Hispanic', schDEMhisp],
+        ['Asian', schDEMasian],
+        ['Multiracial', schDEMmulti],
+        ['Native American', schDEMnatam],
+        ['Native Hawaiian, other', schDEMnathaw]
+    ],
+   showInLegend: true
+  }]
+});
+
+
+var distDEMwhite = parseFloat(json[0].demdistwhite);
+var distDEMblack = parseFloat(json[0].demdistblack);
+var distDEMhisp = parseFloat(json[0].demdisthisp);
+var distDEMasian = parseFloat(json[0].demdistasian);
+var distDEMmulti = parseFloat(json[0].demdistmulti);
+var distDEMnatam = parseFloat(json[0].demdistnatam);
+var distDEMnathaw = parseFloat(json[0].demdistnathaw);
+
+var chartDEMsch = new Highcharts.Chart({
+  chart: {
+    renderTo: 'DEMchartDIST',
+      spacingBottom: 15,
+      spacingTop: 10,
+      spacingLeft: 10,
+      spacingRight: 10,
+      width: null,
+      height: 350,
+          type: 'pie'
+  },
+  plotOptions: {
+     pie: {
+         dataLabels: {
+              enabled: false
+          }
+      }
+  },
+  title: {
+      text: 'District'
+  },
+  series: [{
+      name: 'District',
+      data: [
+          ['White', distDEMwhite],
+          ['Black', distDEMblack],
+          ['Hispanic', distDEMhisp],
+          ['Asian', distDEMasian],
+          ['Multiracial', distDEMmulti],
+          ['Native American', distDEMnatam],
+          ['Native Hawaiian, other', distDEMnathaw]
+      ],
+     showInLegend: true
+  }]
+});
+
+//The students tabular info
+        
+$('#demographicsStu').html(
+  '<table class="table table-hover table-striped table-condensed"><thead>' + 
+  '<tr><th></th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
+  '<tr><td>All</td><td class="text-right">' + json[0].demschoolall + '</td><td class="text-right">' + json[0].demdistall + '</td><td class="text-right">' + json[0].demstateall + '</td></tr>' + 
+  '<tr><td>% white</td><td class="text-right">' + json[0].demschoolwhite + '</td><td class="text-right">' + json[0].demdistwhite + '</td><td class="text-right">' + json[0].demstatewhite + '</td></tr>' + 
+  '<tr><td>% black</td><td class="text-right">' + json[0].demschoolblack + '</td><td class="text-right">' + json[0].demdistblack + '</td><td class="text-right">' + json[0].demstateblack + '</td></tr>' + 
+  '<tr><td>% hispanic</td><td class="text-right">' + json[0].demschoolhisp + '</td><td class="text-right">' + json[0].demdisthisp + '</td><td class="text-right">' + json[0].demstatehisp + '</td></tr>' + 
+  '<tr><td>% asian</td><td class="text-right">' + json[0].demschoolasian + '</td><td class="text-right">' + json[0].demdistasian + '</td><td class="text-right">' + json[0].demstateasian + '</td></tr>' + 
+  '<tr><td>% multiple races</td><td class="text-right">' + json[0].demschoolmulti + '</td><td class="text-right">' + json[0].demdistmulti + '</td><td class="text-right">' + json[0].demstatemulti + '</td></tr>' + 
+  '<tr><td>% native american</td><td class="text-right">' + json[0].demschoolnatam + '</td><td class="text-right">' + json[0].demdistnatam + '</td><td class="text-right">' + json[0].demstatenatam + '</td></tr>' + 
+  '<tr><td>% native Hawaiian, other</td><td class="text-right">' + json[0].demschoolnathaw + '</td><td class="text-right">' + json[0].demdistnathaw + '</td><td class="text-right">' + json[0].demstatenathaw + '</td></tr>' + 
+  '<tr><td colspan="4"><strong>Additional demographics</strong></td></tr>' +
+  '<tr><td>% low income</td><td class="text-right">' + json[0].lowinc2014 + '</td><td class="text-right">' + json[0].demdistlow + '</td><td class="text-right">' + json[0].demstatelow + '</td></tr>' + 
+  '<tr><td>% LEP</td><td class="text-right">' + json[0].demschoollep + '</td><td class="text-right">' + json[0].demdistlep + '</td><td class="text-right">' + json[0].demstatelep + '</td></tr>' + 
+  '<tr><td>% IEP</td><td class="text-right">' + json[0].demschooliep + '</td><td class="text-right">' + json[0].demdistiep + '</td><td class="text-right">' + json[0].demstateiep + '</td></tr>' + 
+  '<tr><td>% homeless<sup><a href="#footnotes">3</sup></a></td><td class="text-right">' + json[0].demschoolhome + '</td><td class="text-right">' + json[0].demdisthome + '</td><td class="text-right">' + json[0].demstatehome + '</td></tr>' + 
+  '<tr><td>Parental involvement (%)</td><td class="text-right">' + json[0].demschoolparent + '</td><td class="text-right">' + json[0].demdistparent + '</td><td class="text-right">' + json[0].demstateparent + '</td></tr>' + 
+  '<tr><td>Attendance rate (%)<sup><a href="#footnotes">4</sup></a></td><td class="text-right">' + json[0].percattendschoolall + '</td><td class="text-right">' + json[0].percattenddistall + '</td><td class="text-right">' + json[0].percattendstateall + '</td></tr>' +       
+  '<tr><td>Mobility rate (%)<sup><a href="#footnotes">5</sup></a></td><td class="text-right">' + json[0].percmobileschool + '</td><td class="text-right">' + json[0].percmobiledist + '</td><td class="text-right">' + json[0].percmobilestate + '</td></tr>' +        
+  '<tr><td>Truancy rate (%)<sup><a href=#footnotes">6</sup></a></td><td class="text-right">' + json[0].perctruantschool + '</td><td class="text-right">' + json[0].perctruantdist + '</td><td class="text-right">' + json[0].perctruantstate + '</td></tr>' +        
+  '</tbody></table>'
+);
+
+
+// The teacher charting info
+
+var dteachDEMwhite = parseFloat(json[0].teacherdistpercwhite);
+var dteachDEMblack = parseFloat(json[0].teacherdistpercblack);
+var dteachDEMhisp = parseFloat(json[0].teacherdistperchisp);
+var dteachDEMasian = parseFloat(json[0].teacherdistpercasian);
+var dteachDEMmulti = parseFloat(json[0].teacherdistpercmulti);
+var dteachDEMnatam = parseFloat(json[0].teacherdistpercnatam);
+var dteachDEMnathaw = parseFloat(json[0].teacherdistpercnathaw);
+
+var chartDEMdteach = new Highcharts.Chart({
+  chart: {
+    renderTo: 'DEMteachDIST',
+    spacingBottom: 15,
+    spacingTop: 10,
+    spacingLeft: 10,
+    spacingRight: 10,
+    width: null,
+    height: 350,
+        type: 'pie'
+  },
+  plotOptions: {
+     pie: {
+         dataLabels: {
+              enabled: false
+          }
+      }
+  },
+  title: {
+      text: 'District'
+  },
+   series: [{
+      name: 'School',
+      data: [
+          ['White', dteachDEMwhite],
+          ['Black', dteachDEMblack],
+          ['Hispanic', dteachDEMhisp],
+          ['Asian', dteachDEMasian],
+          ['Multiracial', dteachDEMmulti],
+          ['Native American', dteachDEMnatam],
+          ['Native Hawaiian, other', dteachDEMnathaw]
+      ],
+     showInLegend: true
+  }]
+});
+
+var SteachDEMwhite = parseFloat(json[0].teacherstatepercwhite);
+var SteachDEMblack = parseFloat(json[0].teacherstatepercblack);
+var SteachDEMhisp = parseFloat(json[0].teacherstateperchisp);
+var SteachDEMasian = parseFloat(json[0].teacherstatepercasian);
+var SteachDEMmulti = parseFloat(json[0].teacherstatepercmulti);
+var SteachDEMnatam = parseFloat(json[0].teacherstatepercnatam);
+var SteachDEMnathaw = parseFloat(json[0].teacherstatepercnathaw);
+
+var chartDEMSteach = new Highcharts.Chart({
+  chart: {
+    renderTo: 'DEMteachSTATE',
+    spacingBottom: 15,
+    spacingTop: 10,
+    spacingLeft: 10,
+    spacingRight: 10,
+    width: null,
+    height: 350,
+        type: 'pie'
+  },
+  plotOptions: {
+     pie: {
+         dataLabels: {
+              enabled: false
+          }
+      }
+  },
+  title: {
+      text: 'State'
+  },
+  series: [{
+      name: 'State',
+      data: [
+          ['White', SteachDEMwhite],
+          ['Black', SteachDEMblack],
+          ['Hispanic', SteachDEMhisp],
+          ['Asian', SteachDEMasian],
+          ['Multiracial', SteachDEMmulti],
+          ['Native American', SteachDEMnatam],
+          ['Native Hawaiian, other', SteachDEMnathaw]
+      ],
+     showInLegend: true
+  }]
+});
+
+//________________________________________
+//The teacher tabular info
+        
+$('#demographicsTeach').html(
+  '<table class="table table-hover table-striped table-condensed">' + 
+  '<thead><tr><th></th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
+  '<tr><td>All</td><td class="text-right">' + json[0].teacherdisttotalfte + '</td><td class="text-right">' + json[0].teacherstatetotalfte + '</td></tr>' + 
+  '<tr><td>% white</td><td class="text-right">' + json[0].teacherdistpercwhite + '</td><td class="text-right">' + json[0].teacherstatepercwhite + '</td></tr>' + 
+  '<tr><td>% black</td><td class="text-right">' + json[0].teacherdistpercblack + '</td><td class="text-right">' + json[0].teacherstatepercblack + '</td></tr>' + 
+  '<tr><td>% hispanic</td><td class="text-right">' + json[0].teacherdistperchisp + '</td><td class="text-right">' + json[0].teacherstateperchisp + '</td></tr>' + 
+  '<tr><td>% asian</td><td class="text-right">' + json[0].teacherdistpercasian + '</td><td class="text-right">' + json[0].teacherstatepercasian + '</td></tr>' + 
+  '<tr><td>% multiple races</td><td class="text-right">' + json[0].teacherdistpercmulti + '</td><td class="text-right">' + json[0].teacherstatepercmulti + '</td></tr>' + 
+  '<tr><td>% native american</td><td class="text-right">' + json[0].teacherdistpercnatam + '</td><td class="text-right">' + json[0].teacherstatepercnatam + '</td></tr>' + 
+  '<tr><td>% native Hawaiian, other</td><td class="text-right">' + json[0].teacherdistpercnathaw + '</td><td class="text-right">' + json[0].teacherstatepercnathaw + '</td></tr>' + 
+  '<tr><td bgcolor="#e1e1e1"><strong>Gender</strong></td><td bgcolor="#e1e1e1"></td><td bgcolor="#e1e1e1"></td></tr>' +
+  '<tr><td>% Male</td><td class="text-right">' + json[0].teacherdistpercmale + '</td><td class="text-right">' + json[0].teacherstatepercmale + '</td></tr>' + 
+  '<tr><td>% Female</td><td class="text-right">' + json[0].teacherdistpercfemale + '</td><td class="text-right">' + json[0].teacherstatepercfemale + '</td></tr>' + 
+  '<tr><td bgcolor="#e1e1e1"><strong>Experience</strong></td><td bgcolor="#e1e1e1"></td><td bgcolor="#e1e1e1"></td></tr>' +
+  '<tr><td>Avg. years experience</td><td class="text-right">' + json[0].teacherdistavgexp + '</td><td class="text-right">' + json[0].teacherstateavgexp + '</td></tr>' + 
+  '<tr><td>% Bachelors degree</td><td class="text-right">' + json[0].teacherdistbach + '</td><td class="text-right">' + json[0].teacherstatebach + '</td></tr>' + 
+  '<tr><td>% Masters +</td><td class="text-right">' + json[0].teacherdistmast + '</td><td class="text-right">' + json[0].teacherstatemast + '</td></tr>' + 
+  '</tbody></table>'
+);
+
+
+//________________________________________
+// THIS IS THE SECTION FOR CLASS SIZE INFO
+  
+  var classSizeInfoBlock = '<br><table class="table table-hover table-striped table-condensed"><thead><tr><th>CLASS SIZE (GRADE)</th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</strong></th></tr></thead><tbody>';
+
+  if(json[0].sizeschool3 != '--'){
+    classSizeInfoBlock += '<tr><td>3rd</td><td class="text-right">' + json[0].sizeschool3 + '</td><td class="text-right">' + json[0].sizedist3 + '</td><td class="text-right">' + json[0].sizestate3 + '</td></tr>';
+  }
+  if(json[0].sizeschool4 != '--'){
+    classSizeInfoBlock += '<tr><td>4th</td><td class="text-right">' + json[0].sizeschool4 + '</td><td class="text-right">' + json[0].sizedist4 + '</td><td class="text-right">' + json[0].sizestate4 + '</td></tr>';
+  }
+  if(json[0].sizeschool5 != '--'){
+    classSizeInfoBlock += '<tr><td>5th</td><td class="text-right">' + json[0].sizeschool5 + '</td><td class="text-right">' + json[0].sizedist5 + '</td><td class="text-right">' + json[0].sizestate5 + '</td></tr>'
+  }
+  if(json[0].sizeschool6 != '--'){
+    classSizeInfoBlock += '<tr><td>6th</td><td class="text-right">' + json[0].sizeschool6 + '</td><td class="text-right">' + json[0].sizedist6 + '</td><td class="text-right">' + json[0].sizestate6 + '</td></tr>';
+  }
+  if(json[0].sizeschool7 != '--'){
+    classSizeInfoBlock += '<tr><td>7th</td><td class="text-right">' + json[0].sizeschool7 + '</td><td class="text-right">' + json[0].sizedist7 + '</td><td class="text-right">' + json[0].sizestate7 + '</td></tr>';
+  }
+  if(json[0].sizeschool8 != '--'){
+    classSizeInfoBlock += '<tr><td>8th</td><td class="text-right">' + json[0].sizeschool8 + '</td><td class="text-right">' + json[0].sizedist8 + '</td><td class="text-right">' + json[0].sizestate8 + '</td></tr>';
+  }
+  if(json[0].sizeschoolhs != '--'){
+    classSizeInfoBlock += '<tr><td>11th</td><td class="text-right">' + json[0].sizeschoolhs + '</td><td class="text-right">' + json[0].sizedisths + '</td><td class="text-right">' + json[0].sizestatehs + '</td></tr>';
+  }
+  classSizeInfoBlock += '<tr><td><strong>Pupil-teacher ratio</strong></td><td></td><td></td><td></td></tr>';
+  
+  if(json[0].mreadschool11all == '--' && json[0].mreadschool3all != '--' || json[0].mreadschool7all != '--'){
+    classSizeInfoBlock += '<tr><td>Elementary school</td><td class="text-right">N/A</td><td class="text-right">' + json[0].teacherratiodistelem + '</td><td class="text-right">' + json[0].teacherratiostateelem + '</td></tr>';
+  }
+  if(json[0].sizeschoolhs != '--'){
+    classSizeInfoBlock += '<tr><td>High School</td><td class="text-right">N/A</td><td class="text-right">' + json[0].teacherratiodisths + '</td><td class="text-right">' + json[0].teacherratiostatehs + '</td></tr>';
+  }
+  classSizeInfoBlock += '<tr><td><strong>Teacher retention rate</strong></td><td class="text-right">' + json[0].teacherschoolret + '</td><td class="text-right">' + json[0].teacherdistret + '</td><td class="text-right">' + json[0].teacherstateret + '</td></tr>';
+  classSizeInfoBlock += '<tr><td><strong>Principal turnover</strong></td><td class="text-right">' + json[0].principalschoolturn + '</td><td class="text-right">' + json[0].principaldistturn + '</td><td class="text-right">' + json[0].principalstateturn + '</td></tr>';
+  classSizeInfoBlock += '</tbody></table><p><small><i>(Note: Turnover is number of principals within 6 years)</i></small></p>';
+  $('p.cSize-head').html( classSizeInfoBlock );
+
+
+
+
 //____________________________________________________________________________________
 //____________________________________________________________________________________
-// THIS IS THE SECTION FOR CHARTING - IT MUST COME AT THE END DUE TO PARSING AND NULLS
+// THIS IS THE SECTION FOR SCORES CHARTING - IT MUST COME AT THE END DUE TO PARSING AND NULLS
 
 //-----------------------------------------
 // here's the high school charting
@@ -1410,34 +1701,23 @@ $('#collegeReady').html(
 //-----------------------------------------
 // footnotes
 
-			if(json[0].SCHOOL11status != 'n'){
-				$('#footnotes').html(
-				'<hr><h4>FOOTNOTES</h4>' + 
-				'<p><small><ul><li><sup>1</sup><strong> LEP: </strong>Percentage of students found to be eligible for bilingual education.<a href="#scores""> BACK</a></li>' + 
-				'<li><sup>2</sup><strong> IEP: </strong>Percentage of students found to be eligible to receive special education services.<a href="#scores"> BACK</a></li>' +
-				'<li><sup>3</sup><strong> % homeless: </strong>Percentage of students who do not have permanent and adequate homes. <a href="#attend">BACK</a></li>' +
-				'<li><sup>4</sup><strong> Attendance rate (%): </strong>Percent of school days attended.<a href="#attend"> BACK</a></li>' +
-				'<li><sup>5</sup><strong> Mobility rate (%): </strong>Percent of students who transfer in or out of a school. Students who transfer in and out multiple times during the year are counted each time they transfer.<a href="#attend"> BACK</a></li>' +
-				'<li><sup>6</sup><strong> Truancy rate (%): </strong>Chronic truancy rate is the percentage of students who have been absent from school without a valid cause for five percent or more of attendance days.<a href="#attend"> BACK</a></li>' +
-				'<li><sup>7</sup><strong> % college ready: </strong>Percentage of students who scored at least a 21 on the ACT.<a href="#cready"> BACK</a></li>' +
-				'<li><sup>8</sup><strong> Dropout rate (%): </strong>Percent of students removed from a school\'s attendance roster. Does not include students who have passed away or suffer an extended illness, transfered to another public/private or home school, or who have been expelled.<a href="#cready"> BACK</a></li>' +
-				'</ul></small></p>'
-);
-			} else {
-				$('#footnotes').html(
-				'<hr><h4>FOOTNOTES</h4>' + 
-				'<p><small><ul><li><sup>1</sup><strong> LEP: </strong>Percentage of students found to be eligible for bilingual education.<a href="#scores""> BACK</a></li>' + 
-				'<li><sup>2</sup><strong> IEP: </strong>Percentage of students found to be eligible to receive special education services.<a href="#scores"> BACK</a></li>' +
-				'<li><sup>3</sup><strong> % homeless: </strong>Percentage of students who do not have permanent and adequate homes. <a href="#attend">BACK</a></li>' +
-				'<li><sup>4</sup><strong> Attendance rate (%): </strong>Percent of school days attended.<a href="#attend"> BACK</a></li>' +
-				'<li><sup>5</sup><strong> Mobility rate (%): </strong>Percent of students who transfer in or out of a school. Students who transfer in and out multiple times during the year are counted each time they transfer.<a href="#attend"> BACK</a></li>' +
-				'<li><sup>6</sup><strong> Truancy rate (%): </strong>Chronic truancy rate is the percentage of students who have been absent from school without a valid cause for five percent or more of attendance days.<a href="#attend"> BACK</a></li>' +
-				'</ul><small></p>'
-);
-			};
+
+var footBlock = '<hr><h4>FOOTNOTES</h4><p><small><ul><li><sup>1</sup><strong> LEP: </strong>Percentage of students found to be eligible for bilingual education.<a href="#scores""> BACK</a></li><li><sup>2</sup><strong> IEP: </strong>Percentage of students found to be eligible to receive special education services.<a href="#scores"> BACK</a></li><li><sup>3</sup><strong> % homeless: </strong>Percentage of students who do not have permanent and adequate homes. <a href="#attend">BACK</a></li><li><sup>4</sup><strong> Attendance rate (%): </strong>Percent of school days attended.<a href="#attend"> BACK</a></li><li><sup>5</sup><strong> Mobility rate (%): </strong>Percent of students who transfer in or out of a school. Students who transfer in and out multiple times during the year are counted each time they transfer.<a href="#attend"> BACK</a></li><li><sup>6</sup><strong> Truancy rate (%): </strong>Chronic truancy rate is the percentage of students who have been absent from school without a valid cause for five percent or more of attendance days.<a href="#attend"> BACK</a></li>';
+
+if(json[0].mreadschool11all != '--'){
+  footBlock += '<li><sup>7</sup><strong> % college ready: </strong>Percentage of students who scored at least a 21 on the ACT.<a href="#cready"> BACK</a></li><li><sup>8</sup><strong> Dropout rate (%): </strong>Percent of students removed from a school\'s attendance roster. Does not include students who have passed away or suffer an extended illness, transfered to another public/private or home school, or who have been expelled.<a href="#cready"> BACK</a></li>';
+};
+
+footBlock += '</ul></small></p>';
+
+
+$('#footnotes').html( footBlock );
+
+
+//________________________________________
+// Enable the tabs
 
 	$(function() {
-//		$( "#scores" ).tab();
 		$( "#demgroup" ).tab();
 		$( "#chartTabs" ).tab();
 		$( "#topnavbar" ).tab();
