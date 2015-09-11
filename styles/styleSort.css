@@ -1,0 +1,29 @@
+th {
+background-color: #D4D6DF;
+}
+/* add hover effect for table rows */  
+td.hovered {
+background-color: lightskyblue;
+}
+th.sortable {
+cursor: pointer;
+padding-right: 23px;
+background-repeat: no-repeat;
+background-position: right center;
+background-image: url('i/bg.gif');
+}
+th.sortable.sorted-asc,  th.sortable.sorted-desc {
+color: white;
+background-color: #A0A0A0;
+}
+th.sortable.sorted-asc {
+background-image: url('i/asc.gif');
+}
+th.sortable.sorted-desc {
+background-image: url('i/desc.gif');
+}
+th.sortable:hover {
+color: black;
+background-color: lightskyblue;
+text-decoration: underline;
+}

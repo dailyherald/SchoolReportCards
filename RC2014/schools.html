@@ -1,0 +1,245 @@
+<div id="loaded"><br><br><img src="images/loader1.gif" width="28" height="28" alt="Loading"></div>
+
+<div class="row" id="reportcardheading">
+	<div id="schoolinfo" class="col-sm-4"></div>
+	<div class="col-sm-4">
+		<br><div id="schoolmap"></div><br>
+	</div>
+	<div class="col-sm-4">
+		<br><p>Space for Ad</p></div><br>
+	</div>
+</div>
+    
+<div class="hidden" id="message">
+<p>ISAT or PSAE results are not available.</p>
+</div>
+
+<nav class="text-center" id="pageControl">
+	<ul class="pagination pagination-sm">
+		<li id="lipage0"><a href="#" id="page0" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+		<li id="lipage1" class="active"><a id="page1" href="#">Scores</a></li>
+		<li id="lipage2"><a id="page2" href="#">.</a></li>
+		<li id="lipage3"><a id="page3" href="#">Demographics</a></li>
+		<li id="lipage4"><a id="page4" href="#">.</a></li>
+		<li id="lipage5"><a id="page5" href="#">Financials</a></li>
+		<li id="lipage6"><a id="page6" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+	</ul>
+</nav>
+
+<div id="chartList" class="hidden">
+
+    <h3>TEST RESULTS <small>- Over time and in context</small></h3>
+    <p class="padding10b"><img src="images/tabs.jpg" class="imgfloatL">&nbsp;&nbsp;<i>Tip: Click the tabs for more.</i></p>
+    <div role="navigation">
+		<ul id="chartTabs" class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="dropdown elemdrop"><a href="#" aria-controls="Elem" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elem.<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li role="presentation" class="ISATchart"><a href="#ISATcharts" role="tab" data-toggle="tab" aria-controls="ISATs">Test scores</a></li>
+					<li role="presentation" class="elemPersp"><a href="#elemPersp" role="tab" data-toggle="tab" aria-controls="elemPersp">In perspective</a></li>
+				</ul>
+			</li>
+			<li role="presentation" class="dropdown hsdrop"><a href="#" aria-controls="HS" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">H.S.<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li role="presentation" class="PSAEchart"><a href="#PSAEcharts" role="tab" data-toggle="tab" aria-controls="PSAEs">Test scores</a></li>
+					<li role="presentation" class="hsPersp"><a href="#hsPersp" role="tab" data-toggle="tab" aria-controls="hsPersp">In perspective</a></li>
+					<li role="presentation" class="ACTchart"><a href="#ACTcharts" role="tab" data-toggle="tab" aria-controls="ACTcharts">ACTs</a></li>
+					<li role="presentation" class="cready"><a href="#cready" role="tab" data-toggle="tab" aria-controls="cready">College readiness</a></li>
+				</ul>
+			</li>
+			<li role="presentation" class="dropdown"><a href="#" aria-controls="Grade" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">By Grade <span class="caret"></span></a>
+				<ul id="list" class="dropdown-menu">
+					<li role="presentation" class="list-3"><a href="#moreTabs-3" role="tab" data-toggle="tab" aria-controls="3rd">3rd</a></li>
+					<li role="presentation" class="list-4"><a href="#moreTabs-4" role="tab" data-toggle="tab" aria-controls="4th">4th</a></li>
+					<li role="presentation" class="list-5"><a href="#moreTabs-5" role="tab" data-toggle="tab" aria-controls="5th">5th</a></li>
+					<li role="presentation" class="list-6"><a href="#moreTabs-6" role="tab" data-toggle="tab" aria-controls="6th">6th</a></li>
+					<li role="presentation" class="list-7"><a href="#moreTabs-7" role="tab" data-toggle="tab" aria-controls="7th">7th</a></li>
+					<li role="presentation" class="list-8"><a href="#moreTabs-8" role="tab" data-toggle="tab" aria-controls="8th">8th</a></li>
+					<li role="presentation" class="list-11"><a href="#moreTabs-11" role="tab" data-toggle="tab" aria-controls="11th">11th</a></li>
+				</ul>
+			</li>
+		</ul>
+		
+		<div class="tab-content">
+			<div id="ISATcharts" role="tabpanel" class="tab-pane" >
+				<div class="wdth97" id="ISATnote"></div>
+				<div class="wdth97" id="ISATyears"></div>
+	        </div>
+			<div id="elemPersp" role="tabpanel" class="tab-pane" >
+	        	<div class="row">
+	        		<div class="clearfix col-xs-12 col-sm-12">
+	        			<div class="schact">
+		        			<div id="PAInote"></div>
+		        			<div id="PAIyears"></div>
+		        		</div>
+	        		</div>
+	        	</div>
+	        	<div class="row">
+        			<div class="col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+							<div id="ISATnoteRANGE"></div>
+							<div id="ISATrange"></div>
+						</div>
+					</div>
+        			<div class="col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+							<div id="GROWnote"></div>
+							<div id="GROWyears"></div>
+						</div>
+					</div>
+				</div>
+	        </div>
+			<div id="PSAEcharts" role="tabpanel" class="tab-pane" >
+	        	<div class="wdth97" id="PSAEnote"></div>
+				<div class="wdth97" id="PSAEyears"></div>
+	        </div>
+			<div id="hsPersp" role="tabpanel" class="tab-pane" >
+	        	<div class="row">
+	        		<div class="clearfix col-xs-12 col-sm-6">
+	        			<div class="schact">
+				        	<div id="hsPAInote"></div>
+							<div id="hsPAIyears"></div>
+		        		</div>
+	        		</div>
+        			<div class="col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+				        	<div id="PSAEnoteRANGE"></div>
+							<div id="PSAErange"></div>
+						</div>
+					</div>
+				</div>
+	        </div>
+			<div id="ACTcharts" role="tabpanel" class="tab-pane" >
+	        	<div class="row">
+	        		<div class="clearfix col-xs-12 col-sm-6">
+	        			<div class="schact">
+				        	<div id="ACTnote"></div>
+							<div id="ACTyears"></div>
+		        		</div>
+	        		</div>
+        			<div class="col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+				        	<div id="ACTnoteRANGE"></div>
+							<div id="ACTrange"></div>
+						</div>
+					</div>
+				</div>
+	        </div>
+			<div id="cready" role="tabpanel" class="tab-pane">
+				<div class="wdth97 table-responsive" id="collegeReady"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-3">
+				<div class="wdth97 table-responsive" id="moreTabs-3a"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-4">
+				<div class="wdth97 table-responsive" id="moreTabs-4a"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-5">
+				<div class="wdth97 table-responsive" id="moreTabs-5a"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-6">
+				<div class="wdth97 table-responsive" id="moreTabs-6a"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-7">
+				<div class="wdth97 table-responsive" id="moreTabs-7a"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-8">
+				<div class="wdth97 table-responsive" id="moreTabs-8a"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="moreTabs-11">
+				<div class="wdth97 table-responsive" id="moreTabs-11a"></div>
+			</div>
+	    </div>
+	</div>
+</div>
+
+<div id="adspt1" class="hidden">
+	<h3>Ad spot 1</h3>
+</div>
+
+<div id="demgroup" class="hidden">
+	<h3 align=left>DEMOGRAPHICS <small>- Students and teachers</small></h3>
+	<p class="padding10b"><img src="images/tabs.jpg" class="imgfloatL">&nbsp;&nbsp;<i>Tip: Click the tabs for more.</i></p>
+	<div role="navigation">
+		<ul id="demogs" class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#demoStu" aria-controls="Students" role="tab" data-toggle="tab">Students</a></li>
+			<li role="presentation"><a href="#demoTeach" aria-controls="Teachers" role="tab" data-toggle="tab">Teachers</a></li>
+			<li role="presentation"><a href="#classsize" aria-controls="Classroom" role="tab" data-toggle="tab">Classroom</a></li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="demoStu">
+ 	        	<div class="row">
+	        		<div class="clearfix col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+							<div id="DEMchartSCH"></div>
+						</div>
+					</div>
+	    			<div class="col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+							<div id="DEMchartDIST"></div>
+						</div>
+					</div>
+				</div>
+				<hr>
+    			<div class="wdth97">
+					<div id="demographicsStu"></div>
+					<div id="attend"></div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="demoTeach">
+ 	        	<div class="row">
+	        		<div class="clearfix col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+							<div id="DEMteachDIST"></div>
+						</div>
+					</div>
+	    			<div class="col-xs-12 col-sm-6">
+	        			<div class="wdth97">
+							<div id="DEMteachSTATE"></div>
+						</div>
+					</div>
+				</div>
+				<hr>
+    			<div class="wdth97">
+					<div id="demographicsTeach"></div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="classsize">
+				<div class="wdth97">
+					<h4>THE CLASSROOM</h4>
+					<p class="cSize-head"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="adspt2" class="hidden">
+	<h3>Ad spot 2</h3>
+</div>
+
+<div id="financials" class="hidden">
+	<h3>Financials</h3>
+	<div id="salary" class="wdth97"></div>
+	<hr>
+	<div id="funding" class="wdth97">
+		<h4 class="padding20t">REVENUE AND EXPENDITURES</h4>
+ 	    <div class="row">
+    		<div class="clearfix col-xs-12 col-sm-6">
+    			<div class="wdth97">
+					<div id="fundDIST"></div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+    			<div class="wdth97">
+					<div id="fundSTATE"></div>
+				</div>
+			</div>
+		</div>
+		<div id="budget"></div>
+	</div>
+</div>   
+
+<div class="notation" id="footnotes"></div>

@@ -1,0 +1,247 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body { 
+  font: 90% Arial, Verdana, sans-serif; 
+}
+
+
+#container {
+  font-size: 1.2em;
+  margin: 10px;
+  width: 595px;
+}
+
+#header {
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #eee;
+  width: 595px;
+}
+
+#links {
+  float: left;
+  width: 590px;
+  height: 220px;
+  padding-left: 5px;
+  background-color: #CCC;
+}
+
+#project { width: 400px }
+
+#reportcardheading {
+  float: left;
+  width: 595px;
+}
+
+#schoolinfo {
+  float: left;
+	width: 300px; 
+	height: 400px;
+
+}
+
+#schoolmap {
+  float: left;
+  padding-left: 5px;
+   width: 290px;
+   height: 400px;
+   margin-top: 1em;
+   margin-bottom: 1em;
+}
+
+#panel {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  margin-left: -180px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+}
+
+#chartList {
+  float: left;
+  width: 585px;
+  background-color: #CCC;
+}
+
+#ISATchart {
+  float: left;
+  width: 565px;
+  background-color: #FFF;
+}
+
+#PSAEchart {
+  float: left;
+  width: 565px;
+  background-color: #FFF;
+}
+
+#ACTchart {
+  float: left;
+  width: 565px;
+  background-color: #FFF;
+}
+
+#scores {
+  float: left;
+  width: 590px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: #FFF;
+}
+
+#moreTabs-3, #moreTabs-4, #moreTabs-5, #moreTabs-6, #moreTabs-7, #moreTabs-8, #moreTabs-11 {
+  float: left;
+  width: 567px;
+  background-color: #FFF;
+  border-bottom: 1px solid #666;
+  border-left: 1px solid #666;
+  border-right: 1px solid #666;
+}
+
+.cSize-head, .cSize-3, .cSize-4, .cSize-5, .cSize-6, .cSize-7, .cSize-8, .cSize-11 {
+	margin-bottom: -15px;
+}
+
+
+#demgroup {
+	float: left;
+	width: 590px;
+	background-color: #CCC;
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+#DEMchartSCH {
+  float: left;
+  width: 290px;
+  padding-right: 5px;
+}
+
+#DEMchartDIST {
+  float: left;
+  width: 290px;
+}
+
+#demographics {
+  float: left;
+  width: 585px;
+	background-color: #FFF;
+}
+
+#classsize {
+  float: left;
+	width: 595px;
+}
+
+#footer {
+	background-color: #CCC;
+	width: 585px;
+	position: relative;
+  padding-left: 5px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-right: 5px;
+	clear: both;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top: 1em;
+}
+
+.ui-autocomplete {
+max-height: 100px;
+max-width: 400px;
+overflow-y: auto;
+/* prevent horizontal scrollbar */
+overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+
+#school {
+width: 400px;
+}
+
+#schools2 {
+width: 400px;
+}
+
+#school-name {
+width: 400px;
+}
+
+
+
+h1 { 
+  font-size: 2em; 
+  margin-bottom: 0; 
+}
+
+h2 { 
+  font-size: 1.5em; 
+  margin-bottom: .5em; 
+}
+
+h3 { 
+  font-size: 1.2em; 
+  margin-bottom: .5em;
+  padding-top:5px;
+  border-top: 1px solid #000;
+  width: 585px;
+} 
+
+h4 { 
+  font-size: 1.2em; 
+  margin-bottom: .25em; 
+}
+
+.link {
+  margin: 10px;
+}
+
+.link h3 {
+  font-weight: bold;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+	border-top-style:solid;
+	border-color:#999999;
+	border-width:1px;
+	padding-top:2px;
+	padding-bottom:2px;
+	padding-right:10px;
+}
+
+.tr {
+	background-color:#FFF;
+}
+
+.alt {
+  background-color: #ccc;
+}
+
+.italic {
+  font-style: italic;
+}
+.bold {
+  font-weight: bold;
+}
+
+.distSchools {
+	border-top-style:solid;
+	border-color:#999999;
+	border-width:1px;
+	padding-top:2px;
+	padding-bottom:2px;
+	margin-bottom: -15px
+}
