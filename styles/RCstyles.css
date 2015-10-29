@@ -91,6 +91,7 @@ hr {
 	padding:0;
 	font-family:Georgia,sans-serif;
 	font-weight:700;
+	color:#337ab7;
 }
 
 #header p.schoolYear {
@@ -100,6 +101,9 @@ hr {
 	font-family:Arial,sans-serif;
 }
 
+.schPUMP {
+	font-size:20px;
+	}
 
 /* styles for search boxes #dedede */
 
@@ -144,54 +148,6 @@ hr {
 #schoolinfo h2 {
   color:#337ab7;
   font-weight:bold;
-}
-
-/*
-#demoStu, #demoTeach {
-  width:584px;
-  border:1px solid #ccc;
-  border-top:0;
-  padding:0;
-  margin:0;
-}
-
-#DEMchartSCH, #DEMchartDIST, #DEMteachDIST, #DEMteachSTATE {
-  float: left;
-  width: 50%;
-}
-
-#demographicsStu, #demographicsTeach, #attend {
-	clear:both;
-	background-color: #FFF;
-	width:575px;
-	padding:10px 4px;
-}
-
-#salary, #funding {
-	width: 100%;
-}
-
-#funding h5 {border-bottom:3px solid #999;}
-
-#fundDIST {
-  float: left;
-  width: 285px;
-  padding-right: 4px;
-  border-right: 1px solid #666;
-	margin-bottom: 10px;
-	margin-top: 5px;
-}
-
-#fundSTATE {
-  float: left;
-  width: 290px;
-	margin-bottom: 10px;
-	margin-top: 5px;
-}
-
-#budget {
-  float: center;
-	width: 595px;
 }
 
 
@@ -246,6 +202,8 @@ hr {
 	float:left;
 }
 
-.schPUMP {
-	font-size:20px;
-	}
+
+#underfoot {
+  background-color: #006BA4;
+  height: 10px;
+}

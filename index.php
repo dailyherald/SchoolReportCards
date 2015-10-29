@@ -2,37 +2,104 @@
 
 <head>
 	<meta name="viewport" content="width=device-width" />
-	<title>2014 Illinois School Report Cards</title>
+	<title>Illinois School Report Cards</title>
+		<meta charset="utf-8">
+		<meta name="keywords" content="newspaper, chicago, suburbs, Illinois, school, report cards, ISAT, PSAE, ACT" />
+		<meta name="description" content="The vital data, the vital stats from the Illinois School Report Cards." />
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="content-language" content="en" />
+		<meta property="og:site_name" content="Daily Herald 2013-2014 School Report Cards" />
+		<meta property="og:image" content="http://reportcards.dailyherald.com/images/DH2013RC.jpg">
+		<meta property="og:url" content="http://reportcards.dailyherald.com">
+
 
 	<link rel="stylesheet" href="styles/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="styles/css/bootstrap.min.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="styles/css/bootstrap-theme.min.css" type="text/css" media="screen" />
-<!--<link rel="stylesheet" href="styles/styleSort.css" type="text/css" media="screen" />
-	<script src="scripts/jquery.table.js"></script>
-	<script src="scripts/jquery-1.11.3.min.js"></script>-->
+	<link rel="stylesheet" type="text/css" href="scripts/datatables/dataTables.bootstrap.min.css"/>
+
 	<script src="scripts/jquery-1.9.1.min.js"></script>
 	<script src="scripts/jquery-ui.min.js"></script>
-
-	<script src="scripts/RC14search.js"></script>
-	<script src="scripts/highcharts.js"></script>
+	<script src="scripts/RC15search.js"></script>
 	<script src="scripts/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="scripts/datatables/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="scripts/datatables/dataTables.bootstrap.min.js"></script>
+
+	<script src="scripts/highcharts.js"></script>
 	<script src="scripts/grouped-categories.js"></script>
+
 	<link rel="stylesheet" href="styles/RCstyles.css" type="text/css" media="screen" />
 
 	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&'></script>
 
 	<script type="text/javascript">
 		var getID = '<?php echo filter_var($_GET["id-name"], FILTER_SANITIZE_STRING); ?>';
+		var getTYPE = '<?php echo filter_var($_GET["schtype"], FILTER_SANITIZE_STRING); ?>';
+		var getCOUNTY = '<?php echo filter_var($_GET["COUNTYlist"], FILTER_SANITIZE_STRING); ?>';
+		var getCITY = '<?php echo filter_var($_GET["CITYlist"], FILTER_SANITIZE_STRING); ?>';
+		var getDIST = '<?php echo filter_var($_GET["district-name"], FILTER_SANITIZE_STRING); ?>';
+		var getISAT = '<?php echo filter_var($_GET["ISAT"], FILTER_SANITIZE_STRING); ?>';
+		var getGROW = '<?php echo filter_var($_GET["GROW"], FILTER_SANITIZE_STRING); ?>';
+		var getPSAE = '<?php echo filter_var($_GET["PSAE"], FILTER_SANITIZE_STRING); ?>';
+		var getACT = '<?php echo filter_var($_GET["ACT"], FILTER_SANITIZE_STRING); ?>';
+		var getAll = '<?php echo filter_var($_GET["schoolsAll"], FILTER_SANITIZE_STRING); ?>';
+		var getAlldist = '<?php echo filter_var($_GET["districtsAll"], FILTER_SANITIZE_STRING); ?>';
+		var getGROWTH = '<?php echo filter_var($_GET["GROWTH"], FILTER_SANITIZE_STRING); ?>';
+
 	</script>
 
 	<script src="scripts/global_v2.js?updated=20120907"></script>
 	<script>var $ = jQuery;</script>
 
+<!-- Google ad code -->
+
+<script type='text/javascript'>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function() {
+    var gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    var useSSL = 'https:' == document.location.protocol;
+    gads.src = (useSSL ? 'https:' : 'http:') +
+      '//www.googletagservices.com/tag/js/gpt.js';
+    var node = document.getElementsByTagName('script')[0];
+    node.parentNode.insertBefore(gads, node);
+  })();
+</script>
+
+<script type='text/javascript'>
+  googletag.cmd.push(function() {
+	var mapping = googletag.sizeMapping()
+		.addSize([970, 90], [ [970, 90], [728, 90] ])
+		.addSize([728, 90], [728, 90])
+		.addSize([0, 0], [320, 50])
+		.build();
+	googletag.defineSlot('/30709998/dailyherald.com/news/education/school-report-cards', [320, 50], 'div-gpt-ad-1443014923454-0').addService(googletag.pubads()).defineSizeMapping(mapping).setTargeting("content-topic", "education").setTargeting("pos", "atf");
+    googletag.defineSlot('/30709998/dailyherald.com/news/education/school-report-cards', [300, 250], 'div-gpt-ad-1443014923454-1').addService(googletag.pubads()).setTargeting("content-topic", "education").setTargeting("pos", "btf");
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+
+<!-- End ad code -->
+
+<!-- Google page tracking code -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-39205744-20', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- End page tracking -->
+
 </head>
 
 <body>
-
-<div class="container">
 
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
@@ -45,20 +112,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">TOP LISTS</a>
+            <a href="index.php"><img alt="Brand" src="images/dh.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="schools/?COUNTYlist=no&district-name=no&CITYlist=no&ISAT=yes&GROW=no&PSAE=no&ACT=no&schoolsAll=no&districtsAll=no">TOP ISAT</a></li>
-                <li><a href="schools/?COUNTYlist=no&district-name=no&CITYlist=no&ISAT=no&GROW=yes&PSAE=no&ACT=no&schoolsAll=no&districtsAll=no">TOP GROWTH</a></li>
-                <li><a href="schools/?COUNTYlist=no&district-name=no&CITYlist=no&ISAT=no&GROW=no&PSAE=yes&ACT=no&schoolsAll=no&districtsAll=no">TOP PSAE</a></li>
-                <li><a href="schools/?COUNTYlist=no&district-name=no&CITYlist=no&ISAT=no&GROW=no&PSAE=no&ACT=yes&schoolsAll=no&districtsAll=no">TOP ACT</a></li>
+                <li><a href="index.php?ISAT=yes">TOP ISAT</a></li>
+                <li><a href="index.php?GROW=yes">TOP GROWTH</a></li>
+                <li><a href="index.php?PSAE=yes">TOP PSAE</a></li>
+                <li><a href="index.php?ACT=yes"><strong style="color:red">NEW: </strong>TOP ACT</a></li>
             </ul>
         </div>
     </div><!-- end container-->
 </nav>
+
+<div class="container">
 
 <!-- where nav would go -->
 
@@ -73,11 +142,21 @@
 	</div>
 	<!--End hidden post formA? -->
 
+<!-- /30709998/dailyherald.com/news/education/school-report-cards -->
+<div id='div-gpt-ad-1443014923454-0'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0'); });
+</script>
+</div>
+
 	<!--Begin Header -->
 	<div id="header">
-		<p class="schoolYear">School report card testing</p>
+		<br>
+		<p class="schoolYear">Illinois State Report Cards</p>
 		<h1>Daily Herald School Checker</h1>
 	    <p class="schPUMP">The vital data, the vital stats from the Illinois School Report Cards.</p>
+	    <p><span style="color:red">The state is releasing 2015 school report card data in steps.</span> This release includes demographic information for the 2014-2015 school year as well as ACT test results. Results for high school and elementary school PARCC tests will be released later in the year.</p>
+	    <p><strong>USE THE SEARCH OPTIONS</strong> in the three tabs below to find schools or lists of schools by district, city, county or suburban area.</p>
 	</div>
 	<!--End Header -->
 
@@ -108,6 +187,7 @@
 			            <br>
 						<input type="text" id="school"  name="school" >
 						<input type="hidden" id="id-name" name="id-name" >
+						<input type="hidden" id="schtype" name="schtype" >
 						<input type="submit" id="submit" value="Get school" style="margin-top:8px;">
 					</p>
 					</form>
@@ -119,7 +199,7 @@
 				<!--Begin District search box -->
 				<div id="districtFIND" class="schact">              
 					<h5>Find schools by district</h5>
-					<form action='schools/' method='get'>
+					<form action='index.php' method='get'>
 					<p>
 						<ul>
 				            <li>Type at least three of the district's four-digit state number. For District 3, you would type 003, for District 46 you would type 046 and for District 211 type 211.</li>
@@ -129,13 +209,6 @@
 						<input type="text" id="district"  name="district" >
 						<input type="hidden" id="dist-ID" name="dist-ID" >
 						<input type="hidden" id="district-name" name="district-name" >
-						<input type="hidden" name="CITYlist" value="no">
-						<input type="hidden" name="COUNTYlist" value="no">
-						<input type="hidden" name="ISAT" value="no">
-						<input type="hidden" name="PSAE" value="no">
-						<input type="hidden" name="ACT" value="no">
-						<input type="hidden" name="schoolsAll" value="no">
-						<input type="hidden" name="districtsAll" value="no">
 						<input type="submit" id="submit" value="Get district" style="margin-top:8px;">
 					</p>
 					</form>
@@ -151,7 +224,7 @@
 					<!-- Begin City -->
 					<div class="row">
 					<div class="col-sm-6">
-						<form action='schools/' method='get'>
+						<form action='index.php' method='get'>
 						<p class="searchOPTIONS">Select a city, then click "Get City." Or...</p>
 						<p>
 							<select name="CITYlist" size="5" id="CITYlist">
@@ -1031,13 +1104,6 @@
 							<option value="Zeigler">Zeigler</option>
 							<option value="Zion">Zion</option>
 							</select><br />
-						<input type="hidden" name="COUNTYlist" value="no">
-						<input type="hidden" id="district-name" name="district-name" value="no">
-						<input type="hidden" name="ISAT" value="no">
-						<input type="hidden" name="PSAE" value="no">
-						<input type="hidden" name="ACT" value="no">
-						<input type="hidden" name="schoolsAll" value="no">
-						<input type="hidden" name="districtsAll" value="no">
 						<input type="submit" name="citySUBMIT" id="citySUBMIT"  value="Get City" style="margin-top:8px;">
 						</p>
 						</form>
@@ -1046,7 +1112,7 @@
 
 					<!--Begin County search box -->
 					<div class="col-sm-6">  
-						<form action='schools/' method='get'>
+						<form action='index.php' method='get'>
 						<p class="searchOPTIONS">...Select a county, then click "Get County."</p>
 						<p>
 							<select name="COUNTYlist" size="5" id="COUNTYlist">
@@ -1154,13 +1220,6 @@
 							<option value="Woodford">Woodford</option>
 							</select><br />
 						<input type="submit" name="countySUBMIT" id="countySUBMIT"  value="Get County" style="margin-top:8px;"></p>
-						<input type="hidden" id="district-name" name="district-name" value="no">
-						<input type="hidden" name="ISAT" value="no">
-						<input type="hidden" name="PSAE" value="no">
-						<input type="hidden" name="ACT" value="no">
-						<input type="hidden" name="CITYlist" value="no">
-						<input type="hidden" name="schoolsAll" value="no">
-						<input type="hidden" name="districtsAll" value="no">
 						</form>
 					</div>
 					<!--End -->
@@ -1176,33 +1235,19 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<p>
-								<form action='schools/' method='get'>
+								<form action='index.php' method='get'>
 									To see a sortable list of all suburban schools in the six-county area, click below.
 									<br>
-										<input type="hidden" name="district-name" value="no">
-										<input type="hidden" name="CITYlist" value="no">
-										<input type="hidden" name="COUNTYlist" value="no">
-										<input type="hidden" name="ISAT" value="no">
-										<input type="hidden" name="PSAE" value="no">
-										<input type="hidden" name="ACT" value="no">
 										<input type="hidden" name="schoolsAll" value="Chicago">
-										<input type="hidden" name="districtsAll" value="no">
 										<input type="submit" id="submit" value="Get suburban schools">
 								</form>
 							</p>
 						</div>
 						<div class="col-sm-6">
 							<p>
-								<form action='schools/' method='get'>
+								<form action='index.php' method='get'>
 									To see a sortable list of all suburban districts in the six-county area, click below.
 									<br>
-										<input type="hidden" name="district-name" value="no">
-										<input type="hidden" name="CITYlist" value="no">
-										<input type="hidden" name="COUNTYlist" value="no">
-										<input type="hidden" name="ISAT" value="no">
-										<input type="hidden" name="PSAE" value="no">
-										<input type="hidden" name="ACT" value="no">
-										<input type="hidden" name="schoolsAll" value="no">
 										<input type="hidden" name="districtsAll" value="Chicago">
 										<input type="submit" id="submit" value="Get suburban districts">
 								</form>
@@ -1220,17 +1265,16 @@
 	<!--Begin HTML section -->
 	<div id="mainpge"></div>
 
+	<!--End HTML section-->
+
 	<div id="creditBox">
 		<p><small>Daily Herald web app by Tim Broderick <a href="mailto:tbroderick@dailyherald.com">tbroderick@dailyherald.com</a>. Source: Illinois State Board of Education school report card data. Thanks to the Texas A&M University Geography department for their geocoding services.
 		</small></p>
 	</div>
-
-	<!--End HTML section-->
-
+	<div id="underfoot"></div>
 
 </div> <!-- ends col-md-12-->
 </div> <!-- Ends row -->
-</div> <!-- End container div -->
-
+</div> <!-- End container div -->	
 </body>
 </html>

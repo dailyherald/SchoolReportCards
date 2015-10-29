@@ -1,11 +1,12 @@
 $( document ).ready( function() {
+  window.location.hash = '#mainpge';
   console.log(getID);
   if (getID == "") { 
     console.log("please choose a school");
   } else
   console.log(getID);
   $('#loaded').hide();
-  $.getJSON('/SchoolReportCards/RC2014/getSchool14.php?term=' + getID, function(json){
+  $.getJSON('/SchoolReportCards/RC2014/getSchool.php?term=' + getID, function(json){
     var logID = json[0].schid;
     var logSCHOOL = json[0].facilityname;
         console.log("school = " + json[0].facilityname);
@@ -22,7 +23,7 @@ $( document ).ready( function() {
     schInfo += '<h2>' + json[0].facilityname + '</h2>';
   };
 
-  schInfo +='<p><ul><li><strong>District: </strong><a href="../schools/?COUNTYlist=no&schoolsAll=no&districtsAll=no&CITYlist=no&ISAT=no&PSAE=no&ACT=no&district-name=' + json[0].districtname + '">' + json[0].districtname + '</a></li><li><strong>School type: </strong>' + json[0].schooltype + ' serving grades ' + json[0].gradesserved + '</li><li><strong>Administrator: </strong>' + json[0].administrator + '</li><li><strong>Address: </strong>' + json[0].address + ', ' + json[0].city + ', IL ' + json[0].zip + '</li><li><strong>Phone: </strong>' + json[0].telephone + '</li><li><strong>Enrollment: </strong>' + json[0].enroll2014 + '</li>';
+  schInfo +='<p><ul><li><strong>District: </strong><a href="index.php?district-name=' + json[0].districtname + '">' + json[0].districtname + '</a></li><li><strong>School type: </strong>' + json[0].schooltype + ' serving grades ' + json[0].gradesserved + '</li><li><strong>Administrator: </strong>' + json[0].administrator + '</li><li><strong>Address: </strong>' + json[0].address + ', ' + json[0].city + ', IL ' + json[0].zip + '</li><li><strong>Phone: </strong>' + json[0].telephone + '</li><li><strong>Enrollment: </strong>' + json[0].enroll2014 + '</li>';
 
   if(json[0].note != '--'){
     schInfo += '<li><strong>Note: </strong>' + json[0].note + '</li>';
@@ -137,91 +138,45 @@ var pagenum = 1;
 
 $("#demgroup, #financials, #adspt1, #adspt2").hide();
 
-$("#page0").click(function () {
-  if (pagenum >1){
-    --pagenum;
-    turnPage(pagenum);
-    return false;
-  } else {
-    pagenum = 1;
-    return false;
-  };
-});
 $("#page1").click(function () {
   pagenum = 1;
   turnPage(pagenum);
   return false;
 });
+
 $("#page2").click(function () {
   pagenum = 2;
   turnPage(pagenum);
   return false;
 });
+
 $("#page3").click(function () {
   pagenum = 3;
   turnPage(pagenum);
   return false;
 });
-$("#page4").click(function () {
-  pagenum = 4;
-  turnPage(pagenum);
-  return false;
-});
-$("#page5").click(function () {
-  pagenum = 5;
-  turnPage(pagenum);
-  return false;
-});
-$("#page6").click(function () {
-  if (pagenum < 5){
-    ++pagenum;
-    turnPage(pagenum);
-    return false;
-  } else {
-    pagenum = 5;
-    return false;
-  };
-});
+
 
 function turnPage(numpage) {
 
   if(numpage == 1) {
-    $("#lipage1, #lipage2, #lipage3, #lipage4, #lipage5").removeClass('active');
+    $("#lipage1, #lipage2, #lipage3").removeClass('active');
     $("#lipage1").addClass('active');
-    $("#lipage0").addClass('disabled');
-    $("#lipage6").removeClass('disabled');
-    $("#adspt1, #demgroup, #adspt2, #financials").hide();
+    $("#demgroup, #financials").hide();
     $("#chartList").show();
+    $(window).resize();
   } else if(numpage == 2) {
-    $("#lipage1, #lipage2, #lipage3, #lipage4, #lipage5").removeClass('active');
+    $("#lipage1, #lipage2, #lipage3").removeClass('active');
     $("#lipage2").addClass('active');
-    $("#lipage0").removeClass('disabled');
-    $("#lipage6").removeClass('disabled');
-    $("#chartList, #demgroup, #adspt2, #financials").hide();
-    $("#adspt1").removeClass('hidden');
-    $("#adspt1").show();
-  } else if(numpage == 3) {
-    $("#lipage1, #lipage2, #lipage3, #lipage4, #lipage5").removeClass('active');
-    $("#lipage3").addClass('active');
-    $("#lipage0").removeClass('disabled');
-    $("#lipage6").removeClass('disabled');
-    $("#chartList, #adspt1, #adspt2, #financials").hide();
+    $("#chartList, #financials").hide();
     $("#demgroup").show();
-  } else if(numpage == 4) {
-    $("#lipage1, #lipage2, #lipage3, #lipage4, #lipage5").removeClass('active');
-    $("#lipage4").addClass('active');
-    $("#lipage0").removeClass('disabled');
-    $("#lipage6").removeClass('disabled');
-    $("#chartList, #adspt1, #demgroup, #financials").hide();
-    $("#adspt2").removeClass('hidden');
-    $("#adspt2").show();
-  } else if(numpage == 5) {
-    $("#lipage1, #lipage2, #lipage3, #lipage4, #lipage5").removeClass('active');
-    $("#lipage5").addClass('active');
-    $("#lipage0").removeClass('disabled');
-    $("#lipage6").addClass('disabled');
-    $("#chartList, #adspt1, #demgroup, #adspt2").hide();
+    $(window).resize();
+  } else if(numpage == 3) {
+    $("#lipage1, #lipage2, #lipage3").removeClass('active');
+    $("#lipage3").addClass('active');
+    $("#chartList, #demgroup").hide();
     $("#financials").show();
+    $(window).resize();
   } else {
     var junk = "junk";
   };
@@ -614,115 +569,95 @@ $('#perctesta').html(
 $('#salary').html(
 '<table class="table table-hover table-striped table-condensed">' + 
 '<thead><tr><th>SALARY</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
-'<tr><td>Avg. teacher</td><td class="text-right">' + json[0].teachsaldist + '</td><td class="text-right">' + json[0].teachsalstate + '</td></tr>' + 
-'<tr><td>Avg. administrator</td><td class="text-right">' + json[0].adminsaldist + '</td><td class="text-right">' + json[0].adminsalstate + '</td></tr>' + 
-'<tr><td><strong>PER PUPIL SPENDING</strong></td><td class="text-right"><strong>DISTRICT</strong></td><td class="text-right"><strong>STATE</strong></td></tr>' +
-'<tr><td>Instruction</td><td class="text-right">' + json[0].instexppupildist + '</td><td class="text-right">' + json[0].instexppupilstate + '</td></tr>' + 
-'<tr><td>Operations</td><td class="text-right">' + json[0].otherexppupildist + '</td><td class="text-right">' + json[0].otherexppupilstate + '</td></tr>' + 
+'<tr><td class="text-nowrap">Avg. teacher</td><td class="text-right">' + json[0].teachsaldist + '</td><td class="text-right">' + json[0].teachsalstate + '</td></tr>' + 
+'<tr><td class="text-nowrap">Avg. administrator</td><td class="text-right">' + json[0].adminsaldist + '</td><td class="text-right">' + json[0].adminsalstate + '</td></tr>' + 
+'<tr><td class="text-nowrap"><strong>PER PUPIL SPENDING</strong></td><td class="text-right"><strong>DISTRICT</strong></td><td class="text-right"><strong>STATE</strong></td></tr>' +
+'<tr><td class="text-nowrap">Instruction</td><td class="text-right">' + json[0].instexppupildist + '</td><td class="text-right">' + json[0].instexppupilstate + '</td></tr>' + 
+'<tr><td class="text-nowrap">Operations</td><td class="text-right">' + json[0].otherexppupildist + '</td><td class="text-right">' + json[0].otherexppupilstate + '</td></tr>' + 
 '</tbody></table>'
 );
 
 
 // Revenue charting info
 
-var propDISTperc = parseFloat(json[0].fundlocpropdistperc);
-var stateDISTperc = parseFloat(json[0].fundstateaiddistperc);
-var fedDISTperc = parseFloat(json[0].fundfeddistperc);
-var otherLocDISTperc = parseFloat(json[0].fundotherdistperc);
-var otherStateDISTperc = parseFloat(json[0].fundotherstatedistperc);
-
 var chartRevDIST = new Highcharts.Chart({
       chart: {
     renderTo: 'fundDIST',
+    reflow: true,
       spacingBottom: 15,
       spacingTop: 10,
       spacingLeft: 10,
       spacingRight: 10,
       width: null,
-      height: 350,
-          type: 'pie'
+      height: 400,
+          type: 'bar'
+      },
+    title: {
+      text: null
+  },
+    xAxis: {
+      categories: ['% Local property taxes', '% State aid', '% Federal aid', '% Other local funding', '% Other state funding'],
+      title: {
+        text: null
+        }
+    },
+    yAxis: {
+      tickInterval: 10,
+      min: 0,
+      max: 100,
+      title: {
+        text: 'Percent'
+      },
+      labels: {
+       overflow: 'justify'
+       }
+      },
+      tooltip: {
+        crosshairs: true,
+        shared: true,
+        valueSuffix: ' %'
       },
       plotOptions: {
-         pie: {
-             dataLabels: {
-                  enabled: false
-              }
-          }
-      },
-      title: {
-          text: 'District revenue sources'
-      },
-       series: [{
-          name: 'District:',
-          data: [
-              ['% Local property taxes', propDISTperc],
-              ['% State aid', stateDISTperc],
-              ['% Federal aid', fedDISTperc],
-              ['% Other local funding', otherLocDISTperc],
-              ['% Other state funding', otherStateDISTperc]
-           ],
-         showInLegend: true
-      }]
-});
-
-
-var propSTATEperc = parseFloat(json[0].fundlocpropstateperc);
-var stateSTATEperc = parseFloat(json[0].fundstateaidstateperc);
-var fedSTATEperc = parseFloat(json[0].fundfedstateperc);
-var otherLocSTATEperc = parseFloat(json[0].fundotherstateperc);
-var otherStateSTATEperc = parseFloat(json[0].fundotherstatestateperc);
-
-var chartRevSTATE = new Highcharts.Chart({
-      chart: {
-    renderTo: 'fundSTATE',
-      spacingBottom: 15,
-      spacingTop: 10,
-      spacingLeft: 10,
-      spacingRight: 10,
-      width: null,
-      height: 350,
-          type: 'pie'
-      },
-      plotOptions: {
-         pie: {
-             dataLabels: {
-                  enabled: false
-              }
-          }
-      },
-      title: {
-          text: 'Statewide average'
-      },
-      series: [{
-          name: 'State average:',
-          data: [
-              ['% Local property taxes', propSTATEperc],
-              ['% State aid', stateSTATEperc],
-              ['% Federal aid', fedSTATEperc],
-              ['% Other local funding', otherLocSTATEperc],
-              ['% Other state funding', otherStateSTATEperc]
-          ],
-         showInLegend: true
-      }]
+        bar: {
+        dataLabels: {
+        enabled: false
+        }
+      }
+    },
+  series: [{
+        name: 'District',
+        data: $.map([json[0].fundlocpropdistperc, json[0].fundstateaiddistperc, json[0].fundfeddistperc, json[0].fundotherdistperc, json[0].fundotherstatedistperc], function (valuedistfund) {
+        return isNaN(valuedistfund) ? { y: null } : parseFloat(valuedistfund);
+            }),
+        index:1,
+        legendIndex:0
+    }, {
+        name: 'State average',
+        data: $.map([json[0].fundlocpropstateperc, json[0].fundstateaidstateperc, json[0].fundfedstateperc, json[0].fundotherstateperc, json[0].fundotherstatestateperc], function (valuestatefund) {
+        return isNaN(valuestatefund) ? { y: null } : parseFloat(valuestatefund);
+            }),
+        index:0,
+        legendIndex:1
+    }]
 });
 
 $('#budget').html(
-  '<p><strong>2012-2013 DISTRICT BUDGET </strong>(payable in 2013-\'14 school year)</p>' +
+  '<h4>2012-2013 district budget <small>(payable in 2013-\'14 school year)</small></h4>' +
   '<table class="table table-hover table-striped table-condensed"><tbody>' + 
   '<tr><td></td><td colspan="3" class="text-center"><strong>EXPENDITURES</strong></td></tr>' +
-  '<tr><td><strong>CATEGORY</strong></td><td class="text-right"><strong>Amount</strong></td><td class="text-right"><strong>% of total district spending</strong></td><td class="text-right"><strong>Versus state % average</strong></td></tr>' +
-  '<tr><td>Instruction</td><td class="text-right">' + json[0].instdollars + '</td><td class="text-right">' + json[0].instdollarsdistperc + '</td><td class="text-right">' + json[0].instdollarsstateperc + '</td></tr>' + 
-  '<tr><td>General administration</td><td class="text-right">' + json[0].genadmindollars + '</td><td class="text-right">' + json[0].genadmindistperc + '</td><td class="text-right">' + json[0].genadminstateperc + '</td></tr>' + 
-  '<tr><td>Support services</td><td class="text-right">' + json[0].supportservdollars + '</td><td class="text-right">' + json[0].supportservdistperc + '</td><td class="text-right">' + json[0].supportservstateperc + '</td></tr>' + 
-  '<tr><td>Other expenditures</td><td class="text-right">' + json[0].otherexpdollars + '</td><td class="text-right">' + json[0].otherexpdistperc + '</td><td class="text-right">' + json[0].otherexpstateperc + '</td></tr>' + 
-  '<tr><td>Education fund</td><td class="text-right">' + json[0].edfunddollars + '</td><td class="text-right">' + json[0].edfunddistperc + '</td><td class="text-right">' + json[0].edfundstateperc + '</td></tr>' + 
-  '<tr><td>Operations</td><td class="text-right">' + json[0].opbmdollars + '</td><td class="text-right">' + json[0].opbmdistperc + '</td><td class="text-right">' + json[0].opbmstateperc + '</td></tr>' + 
-  '<tr><td>Transportation</td><td class="text-right">' + json[0].transportdollars + '</td><td class="text-right">' + json[0].transportdistperc + '</td><td class="text-right">' + json[0].transportstateperc + '</td></tr>' + 
-  '<tr><td>Debt service</td><td class="text-right">' + json[0].debtservdollars + '</td><td class="text-right">' + json[0].debtservdistperc + '</td><td class="text-right">' + json[0].debtservstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap"><strong>CATEGORY</strong></td><td class="text-right"><strong>Amount</strong></td><td class="text-right"><strong>% of total<br>district spending</strong></td><td class="text-right"><strong>Versus state<br>% average</strong></td></tr>' +
+  '<tr><td class="text-nowrap">Instruction</td><td class="text-right">' + json[0].instdollars + '</td><td class="text-right">' + json[0].instdollarsdistperc + '</td><td class="text-right">' + json[0].instdollarsstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">General administration</td><td class="text-right">' + json[0].genadmindollars + '</td><td class="text-right">' + json[0].genadmindistperc + '</td><td class="text-right">' + json[0].genadminstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Support services</td><td class="text-right">' + json[0].supportservdollars + '</td><td class="text-right">' + json[0].supportservdistperc + '</td><td class="text-right">' + json[0].supportservstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Other expenditures</td><td class="text-right">' + json[0].otherexpdollars + '</td><td class="text-right">' + json[0].otherexpdistperc + '</td><td class="text-right">' + json[0].otherexpstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Education fund</td><td class="text-right">' + json[0].edfunddollars + '</td><td class="text-right">' + json[0].edfunddistperc + '</td><td class="text-right">' + json[0].edfundstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Operations</td><td class="text-right">' + json[0].opbmdollars + '</td><td class="text-right">' + json[0].opbmdistperc + '</td><td class="text-right">' + json[0].opbmstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Transportation</td><td class="text-right">' + json[0].transportdollars + '</td><td class="text-right">' + json[0].transportdistperc + '</td><td class="text-right">' + json[0].transportstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Debt service</td><td class="text-right">' + json[0].debtservdollars + '</td><td class="text-right">' + json[0].debtservdistperc + '</td><td class="text-right">' + json[0].debtservstateperc + '</td></tr>' + 
   '<tr><td>Tort</td><td class="text-right">' + json[0].tortdollars + '</td><td class="text-right">' + json[0].tortdistperc + '</td><td class="text-right">' + json[0].tortstateperc + '</td></tr>' + 
-  '<tr><td>Pension, Social security</td><td class="text-right">' + json[0].muncretsocdollars + '</td><td class="text-right">' + json[0].muncretsocdistperc + '</td><td class="text-right">' + json[0].muncretsocstateperc + '</td></tr>' + 
-  '<tr><td>Fire prevention and safety</td><td class="text-right">' + json[0].fireprevdollars + '</td><td class="text-right">' + json[0].fireprevdistperc + '</td><td class="text-right">' + json[0].fireprevstateperc + '</td></tr>' + 
-  '<tr><td>Capital projects</td><td class="text-right">' + json[0].capdollars + '</td><td class="text-right">' + json[0].capdistperc + '</strong></td><td class="text-right">' + json[0].capstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Pension, Social security</td><td class="text-right">' + json[0].muncretsocdollars + '</td><td class="text-right">' + json[0].muncretsocdistperc + '</td><td class="text-right">' + json[0].muncretsocstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Fire prevention and safety</td><td class="text-right">' + json[0].fireprevdollars + '</td><td class="text-right">' + json[0].fireprevdistperc + '</td><td class="text-right">' + json[0].fireprevstateperc + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Capital projects</td><td class="text-right">' + json[0].capdollars + '</td><td class="text-right">' + json[0].capdistperc + '</strong></td><td class="text-right">' + json[0].capstateperc + '</td></tr>' + 
   '</table>'
 );
 
@@ -732,212 +667,94 @@ $('#budget').html(
 // THIS IS THE SECTION FOR DEMOGRAPHIC INFORMATION
 
 
-// The students charting info
-
-var schDEMwhite = parseFloat(json[0].demschoolwhite);
-var schDEMblack = parseFloat(json[0].demschoolblack);
-var schDEMhisp = parseFloat(json[0].demschoolhisp);
-var schDEMasian = parseFloat(json[0].demschoolasian);
-var schDEMmulti = parseFloat(json[0].demschoolmulti);
-var schDEMnatam = parseFloat(json[0].demschoolnatam);
-var schDEMnathaw = parseFloat(json[0].demschoolnathaw);
-
-var chartDEMsch = new Highcharts.Chart({
-  chart: {
-    renderTo: 'DEMchartSCH',
-    spacingBottom: 15,
-    spacingTop: 10,
-    spacingLeft: 10,
-    spacingRight: 10,
-    width: null,
-    height: 350,
-        type: 'pie'
-  },
-  plotOptions: {
-     pie: {
-       dataLabels: {
-        enabled: false
-      }
-    }
-  },
-  title: {
-      text: 'School'
-  },
-  series: [{
-    name: 'School',
-    data: [
-        ['White', schDEMwhite],
-        ['Black', schDEMblack],
-        ['Hispanic', schDEMhisp],
-        ['Asian', schDEMasian],
-        ['Multiracial', schDEMmulti],
-        ['Native American', schDEMnatam],
-        ['Native Hawaiian, other', schDEMnathaw]
-    ],
-   showInLegend: true
-  }]
-});
-
-
-var distDEMwhite = parseFloat(json[0].demdistwhite);
-var distDEMblack = parseFloat(json[0].demdistblack);
-var distDEMhisp = parseFloat(json[0].demdisthisp);
-var distDEMasian = parseFloat(json[0].demdistasian);
-var distDEMmulti = parseFloat(json[0].demdistmulti);
-var distDEMnatam = parseFloat(json[0].demdistnatam);
-var distDEMnathaw = parseFloat(json[0].demdistnathaw);
-
-var chartDEMsch = new Highcharts.Chart({
-  chart: {
-    renderTo: 'DEMchartDIST',
-      spacingBottom: 15,
-      spacingTop: 10,
-      spacingLeft: 10,
-      spacingRight: 10,
-      width: null,
-      height: 350,
-          type: 'pie'
-  },
-  plotOptions: {
-     pie: {
-         dataLabels: {
-              enabled: false
-          }
-      }
-  },
-  title: {
-      text: 'District'
-  },
-  series: [{
-      name: 'District',
-      data: [
-          ['White', distDEMwhite],
-          ['Black', distDEMblack],
-          ['Hispanic', distDEMhisp],
-          ['Asian', distDEMasian],
-          ['Multiracial', distDEMmulti],
-          ['Native American', distDEMnatam],
-          ['Native Hawaiian, other', distDEMnathaw]
-      ],
-     showInLegend: true
-  }]
-});
-
 //The students tabular info
         
 $('#demographicsStu').html(
   '<table class="table table-hover table-striped table-condensed"><thead>' + 
   '<tr><th></th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
-  '<tr><td>All</td><td class="text-right">' + json[0].demschoolall + '</td><td class="text-right">' + json[0].demdistall + '</td><td class="text-right">' + json[0].demstateall + '</td></tr>' + 
-  '<tr><td>% white</td><td class="text-right">' + json[0].demschoolwhite + '</td><td class="text-right">' + json[0].demdistwhite + '</td><td class="text-right">' + json[0].demstatewhite + '</td></tr>' + 
-  '<tr><td>% black</td><td class="text-right">' + json[0].demschoolblack + '</td><td class="text-right">' + json[0].demdistblack + '</td><td class="text-right">' + json[0].demstateblack + '</td></tr>' + 
-  '<tr><td>% hispanic</td><td class="text-right">' + json[0].demschoolhisp + '</td><td class="text-right">' + json[0].demdisthisp + '</td><td class="text-right">' + json[0].demstatehisp + '</td></tr>' + 
-  '<tr><td>% asian</td><td class="text-right">' + json[0].demschoolasian + '</td><td class="text-right">' + json[0].demdistasian + '</td><td class="text-right">' + json[0].demstateasian + '</td></tr>' + 
-  '<tr><td>% multiple races</td><td class="text-right">' + json[0].demschoolmulti + '</td><td class="text-right">' + json[0].demdistmulti + '</td><td class="text-right">' + json[0].demstatemulti + '</td></tr>' + 
-  '<tr><td>% native american</td><td class="text-right">' + json[0].demschoolnatam + '</td><td class="text-right">' + json[0].demdistnatam + '</td><td class="text-right">' + json[0].demstatenatam + '</td></tr>' + 
-  '<tr><td>% native Hawaiian, other</td><td class="text-right">' + json[0].demschoolnathaw + '</td><td class="text-right">' + json[0].demdistnathaw + '</td><td class="text-right">' + json[0].demstatenathaw + '</td></tr>' + 
+  '<tr><td>All</td><td class="text-right">' + json[0].enroll2014 + '</td><td class="text-right">' + json[0].enrolldist2014 + '</td><td class="text-right">' + json[0].enrollstate + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% white</td><td class="text-right">' + json[0].demschoolwhite + '</td><td class="text-right">' + json[0].demdistwhite + '</td><td class="text-right">' + json[0].demstatewhite + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% black</td><td class="text-right">' + json[0].demschoolblack + '</td><td class="text-right">' + json[0].demdistblack + '</td><td class="text-right">' + json[0].demstateblack + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% hispanic</td><td class="text-right">' + json[0].demschoolhisp + '</td><td class="text-right">' + json[0].demdisthisp + '</td><td class="text-right">' + json[0].demstatehisp + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% asian</td><td class="text-right">' + json[0].demschoolasian + '</td><td class="text-right">' + json[0].demdistasian + '</td><td class="text-right">' + json[0].demstateasian + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% multiple races</td><td class="text-right">' + json[0].demschoolmulti + '</td><td class="text-right">' + json[0].demdistmulti + '</td><td class="text-right">' + json[0].demstatemulti + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% native american</td><td class="text-right">' + json[0].demschoolnatam + '</td><td class="text-right">' + json[0].demdistnatam + '</td><td class="text-right">' + json[0].demstatenatam + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% native Hawaiian, other</td><td class="text-right">' + json[0].demschoolnathaw + '</td><td class="text-right">' + json[0].demdistnathaw + '</td><td class="text-right">' + json[0].demstatenathaw + '</td></tr>' + 
   '<tr><td colspan="4"><strong>Additional demographics</strong></td></tr>' +
-  '<tr><td>% low income</td><td class="text-right">' + json[0].lowinc2014 + '</td><td class="text-right">' + json[0].demdistlow + '</td><td class="text-right">' + json[0].demstatelow + '</td></tr>' + 
-  '<tr><td>% LEP</td><td class="text-right">' + json[0].demschoollep + '</td><td class="text-right">' + json[0].demdistlep + '</td><td class="text-right">' + json[0].demstatelep + '</td></tr>' + 
-  '<tr><td>% IEP</td><td class="text-right">' + json[0].demschooliep + '</td><td class="text-right">' + json[0].demdistiep + '</td><td class="text-right">' + json[0].demstateiep + '</td></tr>' + 
-  '<tr><td>% homeless<sup><a href="#footnotes">3</sup></a></td><td class="text-right">' + json[0].demschoolhome + '</td><td class="text-right">' + json[0].demdisthome + '</td><td class="text-right">' + json[0].demstatehome + '</td></tr>' + 
-  '<tr><td>Parental involvement (%)</td><td class="text-right">' + json[0].demschoolparent + '</td><td class="text-right">' + json[0].demdistparent + '</td><td class="text-right">' + json[0].demstateparent + '</td></tr>' + 
-  '<tr><td>Attendance rate (%)<sup><a href="#footnotes">4</sup></a></td><td class="text-right">' + json[0].percattendschoolall + '</td><td class="text-right">' + json[0].percattenddistall + '</td><td class="text-right">' + json[0].percattendstateall + '</td></tr>' +       
-  '<tr><td>Mobility rate (%)<sup><a href="#footnotes">5</sup></a></td><td class="text-right">' + json[0].percmobileschool + '</td><td class="text-right">' + json[0].percmobiledist + '</td><td class="text-right">' + json[0].percmobilestate + '</td></tr>' +        
-  '<tr><td>Truancy rate (%)<sup><a href=#footnotes">6</sup></a></td><td class="text-right">' + json[0].perctruantschool + '</td><td class="text-right">' + json[0].perctruantdist + '</td><td class="text-right">' + json[0].perctruantstate + '</td></tr>' +        
+  '<tr><td class="text-nowrap">% low income</td><td class="text-right">' + json[0].lowinc2014 + '</td><td class="text-right">' + json[0].demdistlow + '</td><td class="text-right">' + json[0].demstatelow + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% LEP</td><td class="text-right">' + json[0].demschoollep + '</td><td class="text-right">' + json[0].demdistlep + '</td><td class="text-right">' + json[0].demstatelep + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% IEP</td><td class="text-right">' + json[0].demschooliep + '</td><td class="text-right">' + json[0].demdistiep + '</td><td class="text-right">' + json[0].demstateiep + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% homeless<sup><a href="#footnotes">3</sup></a></td><td class="text-right">' + json[0].demschoolhome + '</td><td class="text-right">' + json[0].demdisthome + '</td><td class="text-right">' + json[0].demstatehome + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Parental involvement (%)</td><td class="text-right">' + json[0].demschoolparent + '</td><td class="text-right">' + json[0].demdistparent + '</td><td class="text-right">' + json[0].demstateparent + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Attendance rate (%)<sup><a href="#footnotes">4</sup></a></td><td class="text-right">' + json[0].percattendschoolall + '</td><td class="text-right">' + json[0].percattenddistall + '</td><td class="text-right">' + json[0].percattendstateall + '</td></tr>' +       
+  '<tr><td class="text-nowrap">Mobility rate (%)<sup><a href="#footnotes">5</sup></a></td><td class="text-right">' + json[0].percmobileschool + '</td><td class="text-right">' + json[0].percmobiledist + '</td><td class="text-right">' + json[0].percmobilestate + '</td></tr>' +        
+  '<tr><td class="text-nowrap">Truancy rate (%)<sup><a href=#footnotes">6</sup></a></td><td class="text-right">' + json[0].perctruantschool + '</td><td class="text-right">' + json[0].perctruantdist + '</td><td class="text-right">' + json[0].perctruantstate + '</td></tr>' +        
   '</tbody></table>'
 );
 
+// The students charting info
 
-// The teacher charting info
 
-var dteachDEMwhite = parseFloat(json[0].teacherdistpercwhite);
-var dteachDEMblack = parseFloat(json[0].teacherdistpercblack);
-var dteachDEMhisp = parseFloat(json[0].teacherdistperchisp);
-var dteachDEMasian = parseFloat(json[0].teacherdistpercasian);
-var dteachDEMmulti = parseFloat(json[0].teacherdistpercmulti);
-var dteachDEMnatam = parseFloat(json[0].teacherdistpercnatam);
-var dteachDEMnathaw = parseFloat(json[0].teacherdistpercnathaw);
-
-var chartDEMdteach = new Highcharts.Chart({
+var chartDEMsch = new Highcharts.Chart({
   chart: {
-    renderTo: 'DEMteachDIST',
+    renderTo: 'DEMchartSCH',
+    reflow: true,
     spacingBottom: 15,
     spacingTop: 10,
     spacingLeft: 10,
     spacingRight: 10,
-    width: null,
-    height: 350,
-        type: 'pie'
+    height: 400,
+        type: 'bar'
+  },
+    title: {
+      text: null
+  },
+    xAxis: {
+      categories: ['White', 'Black', 'Hispanic', 'Asian', 'Multiracial', 'Native American', 'Native Hawaiian, other'],
+      title: {
+          text: null
+      }
+  },
+  yAxis: {
+    tickInterval: 10,
+    min: 0,
+    max: 100,
+    title: {
+        text: 'Percent'
+    },
+    labels: {
+        overflow: 'justify'
+    }
+  },
+  tooltip: {
+    crosshairs: true,
+    shared: true,
+    valueSuffix: ' %'
   },
   plotOptions: {
-     pie: {
+     bar: {
          dataLabels: {
               enabled: false
           }
       }
-  },
-  title: {
-      text: 'District'
-  },
-   series: [{
-      name: 'School',
-      data: [
-          ['White', dteachDEMwhite],
-          ['Black', dteachDEMblack],
-          ['Hispanic', dteachDEMhisp],
-          ['Asian', dteachDEMasian],
-          ['Multiracial', dteachDEMmulti],
-          ['Native American', dteachDEMnatam],
-          ['Native Hawaiian, other', dteachDEMnathaw]
-      ],
-     showInLegend: true
-  }]
-});
-
-var SteachDEMwhite = parseFloat(json[0].teacherstatepercwhite);
-var SteachDEMblack = parseFloat(json[0].teacherstatepercblack);
-var SteachDEMhisp = parseFloat(json[0].teacherstateperchisp);
-var SteachDEMasian = parseFloat(json[0].teacherstatepercasian);
-var SteachDEMmulti = parseFloat(json[0].teacherstatepercmulti);
-var SteachDEMnatam = parseFloat(json[0].teacherstatepercnatam);
-var SteachDEMnathaw = parseFloat(json[0].teacherstatepercnathaw);
-
-var chartDEMSteach = new Highcharts.Chart({
-  chart: {
-    renderTo: 'DEMteachSTATE',
-    spacingBottom: 15,
-    spacingTop: 10,
-    spacingLeft: 10,
-    spacingRight: 10,
-    width: null,
-    height: 350,
-        type: 'pie'
-  },
-  plotOptions: {
-     pie: {
-         dataLabels: {
-              enabled: false
-          }
-      }
-  },
-  title: {
-      text: 'State'
   },
   series: [{
-      name: 'State',
-      data: [
-          ['White', SteachDEMwhite],
-          ['Black', SteachDEMblack],
-          ['Hispanic', SteachDEMhisp],
-          ['Asian', SteachDEMasian],
-          ['Multiracial', SteachDEMmulti],
-          ['Native American', SteachDEMnatam],
-          ['Native Hawaiian, other', SteachDEMnathaw]
-      ],
-     showInLegend: true
-  }]
+        name: 'Students in school',
+        data: $.map([json[0].demschoolwhite, json[0].demschoolblack, json[0].demschoolhisp, json[0].demschoolasian, json[0].demschoolmulti, json[0].demschoolnatam, json[0].demschoolnathaw], function (valueschdem) {
+        return isNaN(valueschdem) ? { y: null } : parseFloat(valueschdem);
+            }),
+        index:1,
+        legendIndex:0
+    }, {
+       name: 'Students in district',
+       data: $.map([json[0].demdistwhite, json[0].demdistblack, json[0].demdisthisp, json[0].demdistasian, json[0].demdistmulti, json[0].demdistnatam, json[0].demdistnathaw], function (valuedistdem) {
+        return isNaN(valuedistdem) ? { y: null } : parseFloat(valuedistdem);
+            }),
+        index:0,
+        legendIndex:1
+    }]
 });
+
 
 //________________________________________
 //The teacher tabular info
@@ -946,26 +763,89 @@ $('#demographicsTeach').html(
   '<table class="table table-hover table-striped table-condensed">' + 
   '<thead><tr><th></th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
   '<tr><td>All</td><td class="text-right">' + json[0].teacherdisttotalfte + '</td><td class="text-right">' + json[0].teacherstatetotalfte + '</td></tr>' + 
-  '<tr><td>% white</td><td class="text-right">' + json[0].teacherdistpercwhite + '</td><td class="text-right">' + json[0].teacherstatepercwhite + '</td></tr>' + 
-  '<tr><td>% black</td><td class="text-right">' + json[0].teacherdistpercblack + '</td><td class="text-right">' + json[0].teacherstatepercblack + '</td></tr>' + 
-  '<tr><td>% hispanic</td><td class="text-right">' + json[0].teacherdistperchisp + '</td><td class="text-right">' + json[0].teacherstateperchisp + '</td></tr>' + 
-  '<tr><td>% asian</td><td class="text-right">' + json[0].teacherdistpercasian + '</td><td class="text-right">' + json[0].teacherstatepercasian + '</td></tr>' + 
-  '<tr><td>% multiple races</td><td class="text-right">' + json[0].teacherdistpercmulti + '</td><td class="text-right">' + json[0].teacherstatepercmulti + '</td></tr>' + 
-  '<tr><td>% native american</td><td class="text-right">' + json[0].teacherdistpercnatam + '</td><td class="text-right">' + json[0].teacherstatepercnatam + '</td></tr>' + 
-  '<tr><td>% native Hawaiian, other</td><td class="text-right">' + json[0].teacherdistpercnathaw + '</td><td class="text-right">' + json[0].teacherstatepercnathaw + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% white</td><td class="text-right">' + json[0].teacherdistpercwhite + '</td><td class="text-right">' + json[0].teacherstatepercwhite + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% black</td><td class="text-right">' + json[0].teacherdistpercblack + '</td><td class="text-right">' + json[0].teacherstatepercblack + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% hispanic</td><td class="text-right">' + json[0].teacherdistperchisp + '</td><td class="text-right">' + json[0].teacherstateperchisp + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% asian</td><td class="text-right">' + json[0].teacherdistpercasian + '</td><td class="text-right">' + json[0].teacherstatepercasian + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% multiple races</td><td class="text-right">' + json[0].teacherdistpercmulti + '</td><td class="text-right">' + json[0].teacherstatepercmulti + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% native american</td><td class="text-right">' + json[0].teacherdistpercnatam + '</td><td class="text-right">' + json[0].teacherstatepercnatam + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% native Hawaiian, other</td><td class="text-right">' + json[0].teacherdistpercnathaw + '</td><td class="text-right">' + json[0].teacherstatepercnathaw + '</td></tr>' + 
   '<tr><td bgcolor="#e1e1e1"><strong>Gender</strong></td><td bgcolor="#e1e1e1"></td><td bgcolor="#e1e1e1"></td></tr>' +
   '<tr><td>% Male</td><td class="text-right">' + json[0].teacherdistpercmale + '</td><td class="text-right">' + json[0].teacherstatepercmale + '</td></tr>' + 
   '<tr><td>% Female</td><td class="text-right">' + json[0].teacherdistpercfemale + '</td><td class="text-right">' + json[0].teacherstatepercfemale + '</td></tr>' + 
   '<tr><td bgcolor="#e1e1e1"><strong>Experience</strong></td><td bgcolor="#e1e1e1"></td><td bgcolor="#e1e1e1"></td></tr>' +
-  '<tr><td>Avg. years experience</td><td class="text-right">' + json[0].teacherdistavgexp + '</td><td class="text-right">' + json[0].teacherstateavgexp + '</td></tr>' + 
-  '<tr><td>% Bachelors degree</td><td class="text-right">' + json[0].teacherdistbach + '</td><td class="text-right">' + json[0].teacherstatebach + '</td></tr>' + 
-  '<tr><td>% Masters +</td><td class="text-right">' + json[0].teacherdistmast + '</td><td class="text-right">' + json[0].teacherstatemast + '</td></tr>' + 
+  '<tr><td class="text-nowrap">Avg. years experience</td><td class="text-right">' + json[0].teacherdistavgexp + '</td><td class="text-right">' + json[0].teacherstateavgexp + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% Bachelors degree</td><td class="text-right">' + json[0].teacherdistbach + '</td><td class="text-right">' + json[0].teacherstatebach + '</td></tr>' + 
+  '<tr><td class="text-nowrap">% Masters +</td><td class="text-right">' + json[0].teacherdistmast + '</td><td class="text-right">' + json[0].teacherstatemast + '</td></tr>' + 
   '</tbody></table>'
 );
 
+// The teacher charting info
+
+
+var chartDEMdteach = new Highcharts.Chart({
+  chart: {
+    renderTo: 'DEMteachDIST',
+    reflow: true,
+    spacingBottom: 15,
+    spacingTop: 10,
+    spacingLeft: 10,
+    spacingRight: 10,
+    height: 400,
+        type: 'bar'
+  },
+    title: {
+      text: null
+  },
+    xAxis: {
+      categories: ['White', 'Black', 'Hispanic', 'Asian', 'Multiracial', 'Native American', 'Native Hawaiian, other'],
+      title: {
+          text: null
+      }
+  },
+  yAxis: {
+    tickInterval: 10,
+    min: 0,
+    max: 100,
+    title: {
+        text: 'Percent'
+    },
+    labels: {
+        overflow: 'justify'
+    }
+  },
+  tooltip: {
+    crosshairs: true,
+    shared: true,
+    valueSuffix: ' %'
+  },
+  plotOptions: {
+     bar: {
+         dataLabels: {
+              enabled: false
+          }
+      }
+  },
+  series: [{
+        name: 'Teachers in district',
+        data: $.map([json[0].teacherdistpercwhite, json[0].teacherdistpercblack, json[0].teacherdistperchisp, json[0].teacherdistpercasian, json[0].teacherdistpercmulti, json[0].teacherdistpercnatam, json[0].teacherdistpercnathaw], function (valuedistteach) {
+        return isNaN(valuedistteach) ? { y: null } : parseFloat(valuedistteach);
+            }),
+        index:1,
+        legendIndex:0
+    }, {
+       name: 'Teachers in state',
+        data: $.map([json[0].teacherstatepercwhite, json[0].teacherstatepercblack, json[0].teacherstateperchisp, json[0].teacherstatepercasian, json[0].teacherstatepercmulti, json[0].teacherstatepercnatam, json[0].teacherstatepercnathaw], function (valuestateteach) {
+        return isNaN(valuestateteach) ? { y: null } : parseFloat(valuestateteach);
+            }),
+        index:0,
+        legendIndex:1
+    }]
+});
 
 //________________________________________
 // THIS IS THE SECTION FOR CLASS SIZE INFO
+
   
   var classSizeInfoBlock = '<br><table class="table table-hover table-striped table-condensed"><thead><tr><th>CLASS SIZE (GRADE)</th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</strong></th></tr></thead><tbody>';
 
@@ -990,7 +870,7 @@ $('#demographicsTeach').html(
   if(json[0].sizeschoolhs != '--'){
     classSizeInfoBlock += '<tr><td>11th</td><td class="text-right">' + json[0].sizeschoolhs + '</td><td class="text-right">' + json[0].sizedisths + '</td><td class="text-right">' + json[0].sizestatehs + '</td></tr>';
   }
-  classSizeInfoBlock += '<tr><td><strong>Pupil-teacher ratio</strong></td><td></td><td></td><td></td></tr>';
+  classSizeInfoBlock += '<tr><td class="text-nowrap"><strong>Pupil-teacher ratio</strong></td><td></td><td></td><td></td></tr>';
   
   if(json[0].mreadschool11all == '--' && json[0].mreadschool3all != '--' || json[0].mreadschool7all != '--'){
     classSizeInfoBlock += '<tr><td>Elementary school</td><td class="text-right">N/A</td><td class="text-right">' + json[0].teacherratiodistelem + '</td><td class="text-right">' + json[0].teacherratiostateelem + '</td></tr>';
@@ -998,8 +878,8 @@ $('#demographicsTeach').html(
   if(json[0].sizeschoolhs != '--'){
     classSizeInfoBlock += '<tr><td>High School</td><td class="text-right">N/A</td><td class="text-right">' + json[0].teacherratiodisths + '</td><td class="text-right">' + json[0].teacherratiostatehs + '</td></tr>';
   }
-  classSizeInfoBlock += '<tr><td><strong>Teacher retention rate</strong></td><td class="text-right">' + json[0].teacherschoolret + '</td><td class="text-right">' + json[0].teacherdistret + '</td><td class="text-right">' + json[0].teacherstateret + '</td></tr>';
-  classSizeInfoBlock += '<tr><td><strong>Principal turnover</strong></td><td class="text-right">' + json[0].principalschoolturn + '</td><td class="text-right">' + json[0].principaldistturn + '</td><td class="text-right">' + json[0].principalstateturn + '</td></tr>';
+  classSizeInfoBlock += '<tr><td class="text-nowrap"><strong>Teacher retention rate</strong></td><td class="text-right">' + json[0].teacherschoolret + '</td><td class="text-right">' + json[0].teacherdistret + '</td><td class="text-right">' + json[0].teacherstateret + '</td></tr>';
+  classSizeInfoBlock += '<tr><td class="text-nowrap"><strong>Principal turnover</strong></td><td class="text-right">' + json[0].principalschoolturn + '</td><td class="text-right">' + json[0].principaldistturn + '</td><td class="text-right">' + json[0].principalstateturn + '</td></tr>';
   classSizeInfoBlock += '</tbody></table><p><small><i>(Note: Turnover is number of principals within 6 years)</i></small></p>';
   $('p.cSize-head').html( classSizeInfoBlock );
 
@@ -1024,6 +904,7 @@ $('#demographicsTeach').html(
   var chartACTcount = new Highcharts.Chart({
         chart: {
       renderTo: 'ACTrange',
+      reflow: true,
       height: 325,
       spacingBottom: 15,
       spacingTop: 10,
@@ -1173,7 +1054,7 @@ $('#demographicsTeach').html(
         xAxis: {
       name: 'Percent meets/exceeds',
         title: {
-                text: 'Composite meets/exceeds PSAE score'
+                text: 'Composite meets/exceeds'
             },
                 categories: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100'],
                 tickInterval: 5,
@@ -1194,8 +1075,8 @@ $('#demographicsTeach').html(
             shared: true,
       crosshairs: true,
             useHTML: true,
-            headerFormat: 'Meets/exceeds<br>score: <b>{point.key}</b><br>',
-            pointFormat: '<span style="color: {series.color}"># of schools<br>with similar score: </span><b>{point.y}</b>',
+            headerFormat: '% Meets/exceeds: <b>{point.key}</b><br>',
+            pointFormat: '<span style="color: {series.color}"># of schools<br>with similar %: </span><b>{point.y}</b>',
             footerFormat: '</table>',
         },
    }, function(chart) { // on complete
@@ -1250,7 +1131,7 @@ $('#demographicsTeach').html(
       min: 0,
       max: 100,
             title: {
-                text: 'PSAE scores'
+                text: 'PSAE % meets/exceeds'
             }
         },
         series: [{
@@ -1280,7 +1161,7 @@ $('#demographicsTeach').html(
 
 
   $('#hsPAInote').html(
-  '<p class="Ppadding"><strong>POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined scores for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their score is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/lowincome" target="_blank">click here</a>.</p>'
+  '<p class="Ppadding"><strong>POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined percent meets/exceeds for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their result is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/lowincome" target="_blank">click here</a>.</p>'
   );
 
   var charthsPAI = new Highcharts.Chart({
@@ -1367,21 +1248,21 @@ $('#demographicsTeach').html(
 
 $('#collegeReady').html(
       '<h4>GRADUATION AND COLLEGE READINESS</h4><p><table class="table table-hover table-striped table-condensed"><thead><tr><th></th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead>' + 
-      '<tbody><tr><td><strong>ACT benchmarks</strong></td><td class="text-right"></td><td class="text-right"></td><td class="text-right"></td></tr>' + 
-      '<tr><td>% met english</td><td class="text-right">' + json[0].actschoolengmet + '</td><td class="text-right">' + json[0].actdistengmet + '</td><td class="text-right">' + json[0].actstateengmet + '</td></tr>' + 
-      '<tr><td>% met math</td><td class="text-right">' + json[0].actschoolmathmet + '</td><td class="text-right">' + json[0].actdistmathmet + '</td><td class="text-right">' + json[0].actstatemathmet + '</td></tr>' + 
-      '<tr><td>% met reading</td><td class="text-right">' + json[0].actschoolreadmet + '</td><td class="text-right">' + json[0].actdistreadmet + '</td><td class="text-right">' + json[0].actstatereadmet + '</td></tr>' + 
-      '<tr><td>% met science</td><td class="text-right">' + json[0].actschoolscimet + '</td><td class="text-right">' + json[0].actdistscimet + '</td><td class="text-right">' + json[0].actstatescimet + '</td></tr>' + 
-      '<tr><td>% met all</td><td class="text-right">' + json[0].actschoolallmet + '</td><td class="text-right">' + json[0].actdistallmet + '</td><td class="text-right">' + json[0].actstateallmet + '</td></tr>' + 
-      '<tr><td>% college ready<sup><a href="#footnotes"> 7</sup></a></td><td class="text-right">' + json[0].percschoolcol + '</td><td class="text-right">' + json[0].percdistcol + '</td><td class="text-right">' + json[0].percstatecol + '</td></tr>' + 
-      '<tr><td><strong>Graduation</strong></td><td class="text-right"></td><td class="text-right"></td><td class="text-right"></td></tr>' +
-      '<tr><td>% freshmen on track</td><td class="text-right">' + json[0].percschoolfresh + '</td><td class="text-right">' + json[0].percdistfresh + '</td><td class="text-right">' + json[0].percstatefresh + '</td></tr>' +        
-      '<tr><td>% H.S. 4-year graduation</td><td class="text-right">' + json[0].perchs4gradschoolall + '</td><td class="text-right">' + json[0].perchs4graddistall + '</td><td class="text-right">' + json[0].perchs4gradstateall + '</td></tr>' +        
-      '<tr><td>% H.S. 5-year graduation</td><td class="text-right">' + json[0].perchs5gradschoolall + '</td><td class="text-right">' + json[0].perchs5graddistall + '</td><td class="text-right">' + json[0].perchs5gradstateall + '</td></tr>' +               
-      '<tr><td>Dropout rate (%)<sup><a href="#footnotes"> 8</sup></a></td><td class="text-right">' + json[0].percdropoutschool + '</td><td class="text-right">' + json[0].percdropoutdist + '</td><td class="text-right">' + json[0].percdropoutstate + '</td></tr>' +        
-      '<tr><td><strong>Grads enrolled in college</strong></td><td class="text-right"></td><td class="text-right"></td><td class="text-right"></td></tr>' +
-      '<tr><td>% within 12 months</td><td class="text-right">' + json[0].percschoolenroll12 + '</td><td class="text-right">' + json[0].percdistenroll12 + '</td><td class="text-right">' + json[0].percstateenroll12 + '</td></tr>' +               
-      '<tr><td>% within 16 months</td><td class="text-right">' + json[0].percschoolenroll16 + '</td><td class="text-right">' + json[0].percdistenroll16 + '</td><td class="text-right">' + json[0].percstateenroll16 + '</td></tr>' +               
+      '<tbody><tr><td class="text-nowrap"><strong>ACT benchmarks</strong></td><td class="text-right"></td><td class="text-right"></td><td class="text-right"></td></tr>' + 
+      '<tr><td class="text-nowrap">% met english</td><td class="text-right">' + json[0].actschoolengmet + '</td><td class="text-right">' + json[0].actdistengmet + '</td><td class="text-right">' + json[0].actstateengmet + '</td></tr>' + 
+      '<tr><td class="text-nowrap">% met math</td><td class="text-right">' + json[0].actschoolmathmet + '</td><td class="text-right">' + json[0].actdistmathmet + '</td><td class="text-right">' + json[0].actstatemathmet + '</td></tr>' + 
+      '<tr><td class="text-nowrap">% met reading</td><td class="text-right">' + json[0].actschoolreadmet + '</td><td class="text-right">' + json[0].actdistreadmet + '</td><td class="text-right">' + json[0].actstatereadmet + '</td></tr>' + 
+      '<tr><td class="text-nowrap">% met science</td><td class="text-right">' + json[0].actschoolscimet + '</td><td class="text-right">' + json[0].actdistscimet + '</td><td class="text-right">' + json[0].actstatescimet + '</td></tr>' + 
+      '<tr><td class="text-nowrap">% met all</td><td class="text-right">' + json[0].actschoolallmet + '</td><td class="text-right">' + json[0].actdistallmet + '</td><td class="text-right">' + json[0].actstateallmet + '</td></tr>' + 
+      '<tr><td class="text-nowrap">% college ready<sup><a href="#footnotes"> 7</sup></a></td><td class="text-right">' + json[0].percschoolcol + '</td><td class="text-right">' + json[0].percdistcol + '</td><td class="text-right">' + json[0].percstatecol + '</td></tr>' + 
+      '<tr><td class="text-nowrap"><strong>Graduation</strong></td><td class="text-right"></td><td class="text-right"></td><td class="text-right"></td></tr>' +
+      '<tr><td class="text-nowrap">% freshmen on track</td><td class="text-right">' + json[0].percschoolfresh + '</td><td class="text-right">' + json[0].percdistfresh + '</td><td class="text-right">' + json[0].percstatefresh + '</td></tr>' +        
+      '<tr><td class="text-nowrap">% H.S. 4-year graduation</td><td class="text-right">' + json[0].perchs4gradschoolall + '</td><td class="text-right">' + json[0].perchs4graddistall + '</td><td class="text-right">' + json[0].perchs4gradstateall + '</td></tr>' +        
+      '<tr><td class="text-nowrap">% H.S. 5-year graduation</td><td class="text-right">' + json[0].perchs5gradschoolall + '</td><td class="text-right">' + json[0].perchs5graddistall + '</td><td class="text-right">' + json[0].perchs5gradstateall + '</td></tr>' +               
+      '<tr><td class="text-nowrap">Dropout rate (%)<sup><a href="#footnotes"> 8</sup></a></td><td class="text-right">' + json[0].percdropoutschool + '</td><td class="text-right">' + json[0].percdropoutdist + '</td><td class="text-right">' + json[0].percdropoutstate + '</td></tr>' +        
+      '<tr><td class="text-nowrap"><strong>Grads enrolled in college</strong></td><td class="text-right"></td><td class="text-right"></td><td class="text-right"></td></tr>' +
+      '<tr><td class="text-nowrap">% within 12 months</td><td class="text-right">' + json[0].percschoolenroll12 + '</td><td class="text-right">' + json[0].percdistenroll12 + '</td><td class="text-right">' + json[0].percstateenroll12 + '</td></tr>' +               
+      '<tr><td class="text-nowrap">% within 16 months</td><td class="text-right">' + json[0].percschoolenroll16 + '</td><td class="text-right">' + json[0].percdistenroll16 + '</td><td class="text-right">' + json[0].percstateenroll16 + '</td></tr>' +               
       '</tbody></table></p>'
 );
 
@@ -1433,7 +1314,7 @@ $('#collegeReady').html(
 			min: 0,
 			max: 100,
             title: {
-                text: 'ISAT scores'
+                text: 'ISAT % meets/exceeds'
             }
         },
         series: [{
@@ -1482,7 +1363,7 @@ $('#collegeReady').html(
     xAxis: {
       name: 'Percent meets/exceeds',
       title: {
-        text: 'Composite meets/exceeds ISAT score'
+        text: 'Composite % meets/exceeds'
       },
       categories: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100'],
       tickInterval: 5,
@@ -1503,8 +1384,8 @@ $('#collegeReady').html(
       shared: true,
       crosshairs: true,
       useHTML: true,
-      headerFormat: 'Meets/exceeds<br>score: <b>{point.key}</b><br>',
-      pointFormat: '<span style="color: {series.color}"># of schools<br>with similar score: </span><b>{point.y}</b>',
+      headerFormat: '% meets/exceeds: <b>{point.key}</b><br>',
+      pointFormat: '<span style="color: {series.color}"># of schools<br>with similar %: </span><b>{point.y}</b>',
       footerFormat: '',
     },
   }, function(chart) { // on complete
@@ -1527,7 +1408,7 @@ $('#collegeReady').html(
 //And here's the PAI and growth scores
 
 	$('#GROWnote').html(
-	'<p class="Ppadding"><strong>Average change in students knowledge or skills</strong> from the previous school year. A number above 100 indicates students are making good progress. To better understand the state\'s new method of evaluating schools, <strong><a href="../schools/"> click here.</a></strong> Measure is for currently for elementary grades only.</p>'
+	'<p class="Ppadding"><strong>Average change in students knowledge or skills</strong> from the previous school year. A number above 100 indicates students are making good progress. To better understand the state\'s new method of evaluating schools, <strong><a href="index.php?GROWTH=yes"> click here.</a></strong> Measure is for currently for elementary grades only.</p>'
 	);
 
 		
@@ -1596,7 +1477,7 @@ $('#collegeReady').html(
 
 
 	$('#PAInote').html(
-  '<p class="Ppadding"><strong>POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined scores for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their score is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/lowincome" target="_blank">click here</a>.</p>'
+  '<p class="Ppadding"><strong>POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined percent meets/exceeds for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their result is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/lowincome" target="_blank">click here</a>.</p>'
 	);
 
 	var chartPAI = new Highcharts.Chart({

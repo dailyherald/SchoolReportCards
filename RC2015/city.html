@@ -1,0 +1,56 @@
+<div id="loaded"><br><br><img src="images/loader1.gif" width="28" height="28" alt="Loading"></div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="wdth97">
+			<div id="schoolsText"></div>
+			<div id="schoolsLIST" class="table-responsive"></div>
+			<div><p><small><strong>NOTE:</strong> Elementary schools will not have PSAE or ACT results, and high schools will usually not have ISAT results.</small></p></div>
+		</div>
+	</div>
+</div>
+
+<script>
+$( document ).ready( function() {
+  $('#loaded').hide();
+  window.location.hash = '#mainpge';
+  $.getJSON('/SchoolReportCards15/RC2015/getCity.php?term=' + getCITY, function(data){
+
+		var schTXT = "";        
+		schTXT += '<h3>Schools in ' + getCITY + '</h3>';
+		schTXT += '<p><strong>TIP: </strong>The list below is sortable. Click on a category name once, and the list will sort by that category in ascending order. Click it again and the list will sort in descending order. So, if you click the heading School, the list will sort in alphabetical order. Click School again and the list will sort in reverse alphabetical order.</p><p><strong>Note:</strong> For 2015, the PARCC test replaced the ISAT and PSAE tests. The state has not yet released PARCC results for 2015.</p>';
+		$('#schoolsText').html(schTXT);
+
+
+		var schLIST = "";
+		schLIST += '<table id="distTABLE" class="table table-hover table-striped table-condensed">';
+		schLIST += '<thead><tr><th>School</th><th class="text-right">2014 Elem. Composite</th><th class="text-right">Elem. PA Index*</th><th class="text-right">2014 HS Composite</th><th class="text-right">HS PA Index*</th><th class="text-right"><strong style="color:red">NEW: </strong>2015 ACT Score</th></tr></thead><tbody>';
+
+		$.each(data, function(i) {
+
+		if( data[i].zelemscore2014 != '--' ) { var elemz = parseFloat(data[i].zelemscore2014); } else { var elemz = ''; };
+
+		if( data[i].zhsscore2014 != '--' ) { var hsz = parseFloat(data[i].zhsscore2014); } else { var hsz = ''; };
+
+		if( data[i].me2014schoolisat != '--' ) { var elemscore = parseFloat(data[i].me2014schoolisat); } else { var elemscore = ''; };
+
+		if( data[i].me2014schoolpsae != '--' ) { var hsscore = parseFloat(data[i].me2014schoolpsae); } else { var hsscore = ''; };
+
+		if( data[i].act2015school != '--' ) { var actscore = parseFloat(data[i].act2015school); } else { var actscore = ''; };
+
+
+		schLIST += '<tr><td class="text-nowrap"><a href="index.php?id-name=' + data[i].schid + '&schtype=' + data[i].schtype + '#mainpge">' + data[i].facilityname + '</a>, <br>District: <a href="index.php?district-name=' + data[i].districtname + '">' + data[i].districtname + '</a></td><td class="text-right">' + elemscore + '</td><td class="text-right">' + elemz + '</td><td class="text-right">' + hsscore + '</td><td class="text-right">' + hsz + '</td><td class="text-right">' + actscore + '</td></tr>';
+		      });
+		schLIST += '</tbody></table></p>';
+
+		schLIST += '<p class="Ppadding"><small><strong>*POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined percent meets/exceeds for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their result is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/lowincome" target="_blank">click here</a>.</small></p>';
+
+		$('#schoolsLIST').html(schLIST);
+
+		$('#distTABLE').DataTable( {
+		        "order": [[ 0, "asc" ]]
+		    });
+		});
+});
+</script>
+<br>

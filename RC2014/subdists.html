@@ -1,0 +1,39 @@
+<div id="loaded"><br><br><img src="images/loader1.gif" width="28" height="28" alt="Loading"></div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="wdth97">
+			<div id="schoolsText"></div>
+			<div id="schoolsLIST" class="table-responsive"></div>
+			<div><p><small><strong>NOTE:</strong> Elementary schools will not have PSAE or ACT results, and high schools will usually not have ISAT results.</small></p></div>
+		</div>
+	</div>
+</div>
+
+<script>
+$( document ).ready( function() {
+  $('#loaded').hide();
+   window.location.hash = '#mainpge';
+  $.getJSON('/SchoolReportCards/RC2014/getAlldist.php?term=' + getAlldist, function(data){
+
+		var schTXT = "";        
+		schTXT += '<h3>All suburban school districts</h3>';
+		schTXT += '<p><strong>TIP: </strong>The list below is sortable. Click on a category name once, and the list will sort by that category in ascending order. Click it again and the list will sort in descending order. So, if you click the heading School, the list will sort in alphabetical order. Click School again and the list will sort in reverse alphabetical order.</p>';
+		$('#schoolsText').html(schTXT);
+
+		var schLIST = "";
+		schLIST += '<table id="distTABLE" class="table table-hover table-striped table-condensed">';
+		schLIST += '<thead><tr><th>District</th><th class="text-right">ISAT Composite</th><th class="text-right">PSAE Composite</th><th class="text-right">ACT Score</th></tr></thead><tbody>';
+		$.each(data, function(i) {
+		  schLIST += '<tr><td class="text-nowrap"><a href="index.php?district-name=' + data[i].districtNAMEdist + '">' + data[i].districtNAMEdist + '</a></td><td class="text-right">' + data[i].ISATdist + '</td><td class="text-right">' + data[i].PSAEdist + '</td><td class="text-right">' + data[i].ACTdist + '</td></tr>';
+		      });
+		schLIST += '</tbody></table></p>';
+		$('#schoolsLIST').html(schLIST);
+
+		$('#distTABLE').DataTable( {
+		        "order": [[ 0, "asc" ]]
+		    });
+		});
+});
+</script>
+<br>
