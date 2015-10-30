@@ -162,13 +162,6 @@ hr {
 
 /* styles for top 100 lists */
 
-#listSCHOOLS {
-  width: 586px;
-  padding: 20px 10px;
-  border-left:1px dotted #d0e0e7;
-  border-right:1px dotted #d0e0e7;
-}
-
 .noteTEXT { 
   font-size: 15px;
 }
@@ -206,4 +199,8 @@ hr {
 #underfoot {
   background-color: #006BA4;
   height: 10px;
+}
+
+.center-blockfloat {
+	float:none
 }

@@ -1267,14 +1267,21 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 
 	<!--End HTML section-->
 
-	<div id="creditBox">
-		<p><small>Daily Herald web app by Tim Broderick <a href="mailto:tbroderick@dailyherald.com">tbroderick@dailyherald.com</a>. Source: Illinois State Board of Education school report card data. Thanks to the Texas A&M University Geography department for their geocoding services.
-		</small></p>
-	</div>
-	<div id="underfoot"></div>
 
 </div> <!-- ends col-md-12-->
 </div> <!-- Ends row -->
-</div> <!-- End container div -->	
+</div> <!-- End container div -->
+
+
+<div id="creditBox">
+	<div class="row">
+		<div class="col-md-10 center-block center-blockfloat">
+			<p><small>Daily Herald web app by Tim Broderick <a href="mailto:tbroderick@dailyherald.com">tbroderick@dailyherald.com</a>. Source: Illinois State Board of Education school report card data. Thanks to the Texas A&M University Geography department for their geocoding services. Files for this webapp are available at our <a href="https://github.com/dailyherald/SchoolReportCards">github site</a>.
+			</small></p>
+		</div>
+	</div>
+</div>
+<div id="underfoot"></div>
+
 </body>
 </html>

@@ -245,9 +245,9 @@ function turnPage(numpage) {
               $('ul li.list-8').show();
         $('#moreTabs-8a').html(
         '<br><table class="table table-hover table-striped table-condensed"><thead>' + 
-        '<tr><th><strong><span style="color:red">NEW: </span>Percent 8th-graders passing Algebra I</strong></th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
+        '<tr><th><strong><span style="color:red">NEW: </span>Percent 8th-graders taking and passing Algebra I</strong></th><th class="text-right">SCHOOL</th><th class="text-right">DISTRICT</th><th class="text-right">STATE</th></tr></thead><tbody>' +
         '<tr><td> </td><td class="text-right">' + json[0].perc8algsch + '</td><td class="text-right">' + json[0].perc8algdist + '</td><td class="text-right">' + json[0].perc8algstate + '</td></tr></tbody></table>' +
-        '<p><small>Note about algebra results here</small></p><hr>' + 
+        '<p><small>Note: A zero or otherwise low score may mean the school does not require Algebra in the eigth grade, or the math class may not qualify as a high-school level Algebra class according to the state.</small></p><hr>' + 
         '<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3><p class="Ppadding"><strong>8th grade reading, math and science results</strong><br><img src="images/read.jpg" class="imgfloatL">&nbsp;&nbsp;<i>Tip: Click the subject name for more.</i></p>' + 
         '<table class="table table-hover table-striped table-condensed"><thead>' + 
         '<tr><th><strong> </strong></th><th class="text-center" colspan="2"><strong>SCHOOL</strong></th><th class="text-center" colspan="2"><strong>DISTRICT</strong></th><th class="text-center" colspan="2"><strong>STATE</strong></th></tr></thead>' + 
