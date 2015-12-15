@@ -3,9 +3,9 @@ Daily Herald School Report Card files
 
 Our [Daily Herald School Checker](http://reportcards.dailyherald.com) displays the latest information from Illinois' State Report Cards, as well as results of our deep data dive into low income and Illinois State Report Cards.
 
-Raw assessment data is available through the [ISBE FTP site](ftp.isbe.net).
+Raw assessment data is available through the public ISBE FTP site at ftp.isbe.net.
 
-Summary school data can be found in the sch2015.xlsx file, in python scripts/rc15csv
+Summary school data can be found in the sch2015.xlsx file, in rc2015/python scripts/rc15csv
 
 
 
