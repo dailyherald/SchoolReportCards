@@ -204,3 +204,14 @@ hr {
 .center-blockfloat {
 	float:none
 }
+
+.divgfx {
+	-webkit-overflow-y-scrolling: touch;
+	overflow-y: scroll;
+  margin-left:auto;
+  margin-right:auto;
+  width: 95%;
+  padding: 5px;
+  height: 560px;
+	background-color: #ffffff;
+}

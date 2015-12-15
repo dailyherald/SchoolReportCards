@@ -3,7 +3,8 @@ $( document ).ready( function() {
   window.location.hash = '#mainpge';
   console.log(getDIST);
   console.log("District = " + getDIST);
-  $.getJSON('/SchoolReportCards15/RC2015/getDistrict.php?term=' + getDIST, function(data){
+//  $.getJSON('/SchoolReportCards15/RC2015/getDistrict.php?term=' + getDIST, function(data){
+  $.getJSON('RC2015/getDistrict.php?term=' + getDIST, function(data){
     var logID = data[0].schid;
     var logSCHOOL = data[0].facilityname;
     console.log("school = " + data[0].facilityname);
@@ -11,36 +12,39 @@ $( document ).ready( function() {
 //Create the list of schools, with links
 
 var schTXT = "";        
-schTXT += '<h3>Schools in ' + getDIST + '</h3>';
-schTXT += '<p>ISAT and PSAE results are for the 2013-2014 school year. For the 2014-2015 school year, the ISATs and PSAEs were replaced with the new PARCC tests. Those results are not yet available. ACT scores are for the 2014-2015 school year.<br><strong>TIP: </strong>The list below is sortable. Click on a category name once, and the list will sort by that category in ascending order. Click it again and the list will sort in descending order. So, if you click the heading School, the list will sort in alphabetical order. Click School again and the list will sort in reverse alphabetical order.</p>';
+schTXT += '<h3>Schools in ' + getDIST + '<br><br><small>With PARCC results for the 2014-2015 school year.</small></h3>';
+schTXT += '<p><strong>TIP: </strong>The list below is sortable. Click on a category name once, and the list will sort by that category in ascending order. Click it again and the list will sort in descending order. So, if you click the heading School, the list will sort in alphabetical order. Click School again and the list will sort in reverse alphabetical order.</p>';
 $('#schoolsText').html(schTXT);
 
     var schLIST = "";
     schLIST += '<table id="distTABLE" class="table table-hover table-striped table-condensed">';
-    schLIST += '<thead><tr><th>School</th><th class="text-right">2014 Elem. Composite</th><th class="text-right">Elem. PA Index*</th><th class="text-right">2014 HS Composite</th><th class="text-right">HS PA Index*</th><th class="text-right"><strong style="color:red">NEW: </strong>2015 ACT Score</th></tr></thead><tbody>';
+    schLIST += '<thead><tr><th>School</th><th class="text-right">Type</th><th class="text-right">% Met/Exceeds</th><th class="text-right">% Approaching</th><th class="text-right">Elem. PA-Index*</th><th class="text-right">H.S. PA-Index*</th></tr></thead><tbody>';
 
     $.each(data, function(i) {
 
-    if( data[i].zelemscore2014 != '--' ) { var elemz = parseFloat(data[i].zelemscore2014); } else { var elemz = ''; };
+    if( data[i].lowinc2015 != '--' ) { var lowinc = parseFloat(data[i].lowinc2015); } else { var lowinc = ''; };
 
-    if( data[i].zhsscore2014 != '--' ) { var hsz = parseFloat(data[i].zhsscore2014); } else { var hsz = ''; };
+    if( data[i].me2015school != '--' ) { var mesch = parseFloat(data[i].me2015school); } else { var mesch = ''; };
 
-    if( data[i].me2014schoolisat != '--' ) { var elemscore = parseFloat(data[i].me2014schoolisat); } else { var elemscore = ''; };
+    if( data[i].me2015schAPP != '--' ) { var appsch = parseFloat(data[i].me2015schAPP); } else { var appsch = ''; };
 
-    if( data[i].me2014schoolpsae != '--' ) { var hsscore = parseFloat(data[i].me2014schoolpsae); } else { var hsscore = ''; };
+    if( data[i].avgELEMz != '--' ) { var elemz = parseFloat(data[i].avgELEMz); } else { var elemz = ''; };
 
-    if( data[i].act2015school != '--' ) { var actscore = parseFloat(data[i].act2015school); } else { var actscore = ''; };
+    if( data[i].avgHSz != '--' ) { var hsz = parseFloat(data[i].avgHSz); } else { var hsz = ''; };
 
 
-    schLIST += '<tr><td class="text-nowrap"><a href="index.php?id-name=' + data[i].schid + '&schtype=' + data[i].schtype + '#mainpge">' + data[i].facilityname  + '</a></td><td class="text-right">' + elemscore + '</td><td class="text-right">' + elemz + '</td><td class="text-right">' + hsscore + '</td><td class="text-right">' + hsz + '</td><td class="text-right">' + actscore + '</td></tr>';
+    schLIST += '<tr><td class="text-nowrap"><a href="index.php?id-name=' + data[i].schid + '&schtype=' + data[i].schtype + '#mainpge">' + data[i].facilityname  + '</a></td><td class="text-right">' + data[i].schtype + '</td><td class="text-right">' + mesch + '</td><td class="text-right">' + appsch + '</td><td class="text-right">' + elemz + '</td><td class="text-right">' + hsz + '</td></tr>';
           });
     schLIST += '</tbody></table></p>';
 
-    schLIST += '<p class="Ppadding"><small><strong>*POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined percent meets/exceeds for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their result is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/lowincome" target="_blank">click here</a>.</small></p>';
+var schNOTE = "";        
+
+schNOTE += '<p class="Ppadding"><small><strong>*POVERTY-ACHIEVEMENT INDEX:</strong> The Daily Herald, in collaboration with WBEZ, examined percent meets/exceeds for public schools with similar percentages of low-income students. A school\'s index rank shows how much higher or lower their result is compared to the average for those similar schools.<br><strong>Most schools will rank between 1 and -1, with 0 (red line) being exactly average for schools in the same low-income range.</strong> For more details about our Poverty-Achievement Index, please <a href="http://reportcards.dailyherald.com/#mainpge" target="_blank">click here</a>.</small></p>';
 
 
 $('#schoolsLIST').html(schLIST);
 $('#distTABLE').DataTable();
+$('#schoolsnote').html(schNOTE);
 
 
 //________________________________________

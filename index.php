@@ -31,7 +31,7 @@
 
 	<link rel="stylesheet" href="styles/RCstyles.css" type="text/css" media="screen" />
 
-	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&'></script>
+	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
 
 	<script type="text/javascript">
 		var getID = '<?php echo filter_var($_GET["id-name"], FILTER_SANITIZE_STRING); ?>';
@@ -39,14 +39,14 @@
 		var getCOUNTY = '<?php echo filter_var($_GET["COUNTYlist"], FILTER_SANITIZE_STRING); ?>';
 		var getCITY = '<?php echo filter_var($_GET["CITYlist"], FILTER_SANITIZE_STRING); ?>';
 		var getDIST = '<?php echo filter_var($_GET["district-name"], FILTER_SANITIZE_STRING); ?>';
-		var getISAT = '<?php echo filter_var($_GET["ISAT"], FILTER_SANITIZE_STRING); ?>';
+		var getELEM = '<?php echo filter_var($_GET["ELEM"], FILTER_SANITIZE_STRING); ?>';
 		var getGROW = '<?php echo filter_var($_GET["GROW"], FILTER_SANITIZE_STRING); ?>';
-		var getPSAE = '<?php echo filter_var($_GET["PSAE"], FILTER_SANITIZE_STRING); ?>';
+		var getHS = '<?php echo filter_var($_GET["HS"], FILTER_SANITIZE_STRING); ?>';
 		var getACT = '<?php echo filter_var($_GET["ACT"], FILTER_SANITIZE_STRING); ?>';
 		var getAll = '<?php echo filter_var($_GET["schoolsAll"], FILTER_SANITIZE_STRING); ?>';
 		var getAlldist = '<?php echo filter_var($_GET["districtsAll"], FILTER_SANITIZE_STRING); ?>';
 		var getGROWTH = '<?php echo filter_var($_GET["GROWTH"], FILTER_SANITIZE_STRING); ?>';
-
+		console.log(getID);
 	</script>
 
 	<script src="scripts/global_v2.js?updated=20120907"></script>
@@ -118,9 +118,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="index.php?ISAT=yes">TOP ISAT</a></li>
-                <li><a href="index.php?GROW=yes">TOP GROWTH</a></li>
-                <li><a href="index.php?PSAE=yes">TOP PSAE</a></li>
+                <li><a href="index.php?ELEM=yes"><strong style="color:red">NEW: </strong>TOP ELEM</a></li>
+                <li><a href="index.php?HS=yes"><strong style="color:red">NEW: </strong>TOP HS</a></li>
                 <li><a href="index.php?ACT=yes"><strong style="color:red">NEW: </strong>TOP ACT</a></li>
             </ul>
         </div>
@@ -155,8 +154,7 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 		<p class="schoolYear">Illinois State Report Cards</p>
 		<h1>Daily Herald School Checker</h1>
 	    <p class="schPUMP">The vital data, the vital stats from the Illinois School Report Cards.</p>
-	    <p><span style="color:red">The state is releasing 2015 school report card data in steps.</span> This release includes demographic information for the 2014-2015 school year as well as ACT test results. Results for high school and elementary school PARCC tests will be released later in the year.</p>
-	    <p><strong>USE THE SEARCH OPTIONS</strong> in the three tabs below to find schools or lists of schools by district, city, county or suburban area.</p>
+	    <p><strong>USE THE SEARCH OPTIONS</strong> in the two tabs below to find schools or lists of schools by district.</p>
 	</div>
 	<!--End Header -->
 
@@ -164,12 +162,12 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 		<ul id="topnavbar" class="nav nav-tabs">
 			<li role="presentation" class="active"><a href="#tabSchools" aria-controls="School" role="tab" data-toggle="tab">School</a></li>
 			<li role="presentation"><a href="#tabDistricts" aria-controls="District" role="tab" data-toggle="tab">District</a></li>
-			<li role="presentation" class="dropdown"><a href="#" aria-controls="Other" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
+			<!--<li role="presentation" class="dropdown"><a href="#" aria-controls="Other" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="#tabCity" aria-controls="City" role="tab" data-toggle="tab">City/County</a></li>
 					<li><a href="#tabOther" aria-controls="Suburbs" role="tab" data-toggle="tab">Suburbs</a></li>
 				</ul>
-			</li>
+			</li>-->
 		</ul>
 		<div class="tab-content" style="margin-bottom:5px;border-bottom:1px dotted #ccc; padding-bottom:5px;">
 			<div role="tabpanel" class="tab-pane active" id="tabSchools">
@@ -215,13 +213,13 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 				</div>
 				<!--End -->
 			</div>
-
-			<div role="tabpanel" class="tab-pane" id="tabCity">
 				<!--Begin City and County search box -->
+					<!-- Begin City -->
+
+<!--			<div role="tabpanel" class="tab-pane" id="tabCity">
 				<div id="cityFIND" class="schact">
 					<h5>Find schools by city or county</h5>
 
-					<!-- Begin City -->
 					<div class="row">
 					<div class="col-sm-6">
 						<form action='index.php' method='get'>
@@ -1108,9 +1106,7 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 						</p>
 						</form>
 					</div>
-					<!--End -->
 
-					<!--Begin County search box -->
 					<div class="col-sm-6">  
 						<form action='index.php' method='get'>
 						<p class="searchOPTIONS">...Select a county, then click "Get County."</p>
@@ -1222,14 +1218,13 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 						<input type="submit" name="countySUBMIT" id="countySUBMIT"  value="Get County" style="margin-top:8px;"></p>
 						</form>
 					</div>
-					<!--End -->
+
 				</div>
-				<!--End City and County-->
+
 				</div>
 			</div>
 
 			<div role="tabpanel" class="tab-pane" id="tabOther">
-				<!--Begin find all in 6-county area -->
 				<div id="findALL" class="schact">  
 					<h5>Find lists of schools</h5>
 					<div class="row">
@@ -1255,8 +1250,7 @@ googletag.cmd.push(function() { googletag.display('div-gpt-ad-1443014923454-0');
 						</div>
 					</div>
 				</div>
-				<!--End -->
-			</div>
+			</div>-->
 		</div>
 	</div>
   

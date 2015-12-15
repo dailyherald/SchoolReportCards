@@ -6,6 +6,7 @@ $( document ).ready( function() {
 	console.log(getTYPE);
  	//autocomplete to find schools
 	$("#school").autocomplete({
+//		source: "/RC2015/searchSchool.php",
 		source: "/SchoolReportCards15/RC2015/searchSchool.php",
 		minLength: 3,
 		select: function(event, ui) {
@@ -21,6 +22,7 @@ $( document ).ready( function() {
 
  	//autocomplete to find districts
 	$("#district").autocomplete({
+//		source: "/RC2015/searchDistrict.php",
 		source: "/SchoolReportCards15/RC2015/searchDistrict.php",
 		minLength: 3,
 		select: function(event, ui) {
@@ -118,14 +120,14 @@ if (getAlldist == 'Chicago'){
 
 //Then get all ISATs
 
-if (getISAT == 'yes'){
-	$( "#mainpge" ).load( "RC2015/topISAT.html");
+if (getELEM == 'yes'){
+	$( "#mainpge" ).load( "RC2015/topELEM.html");
 } else
 
 //Then get all PSAE
 
-if (getPSAE == 'yes'){
-	$( "#mainpge" ).load( "RC2015/topPSAE.html");
+if (getHS == 'yes'){
+	$( "#mainpge" ).load( "RC2015/topHS.html");
 } else
 
 //Then get all growth

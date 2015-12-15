@@ -1,5 +1,28 @@
 <div id="loaded"><br><br><img src="images/loader1.gif" width="28" height="28" alt="Loading"></div>
 
+
+  <style type="text/css">
+	div.bar {
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		border: 1px solid;
+		}
+
+	.schmeCO {
+		background-color: #2f7ed8;
+		}
+	.schappCO {
+		background-color: #86B6EC;
+		}
+	.stmeCO {
+		background-color: #89a54e;
+		}
+	.stappCO {
+		background-color: #B7D27F;
+		}
+</style>
+
 <div class="row" id="reportcardheading">
 	<div class="col-md-8">
 		<div class="row">
@@ -56,10 +79,10 @@
 			</li>
 			<li role="presentation" class="dropdown hsdrop"><a href="#" aria-controls="HS" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">H.S.<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li role="presentation" class="ACTchart"><a href="#ACTcharts" role="tab" data-toggle="tab" aria-controls="ACTcharts">ACTs</a></li>
-					<li role="presentation" class="cready"><a href="#cready" role="tab" data-toggle="tab" aria-controls="cready">College readiness</a></li>
 					<li role="presentation" class="HSchart"><a href="#HScharts" role="tab" data-toggle="tab" aria-controls="HSscores">Test scores</a></li>
 					<li role="presentation" class="hsPersp"><a href="#hsPersp" role="tab" data-toggle="tab" aria-controls="hsPersp">In perspective</a></li>
+					<li role="presentation" class="ACTchart"><a href="#ACTcharts" role="tab" data-toggle="tab" aria-controls="ACTcharts">ACTs</a></li>
+					<li role="presentation" class="cready"><a href="#cready" role="tab" data-toggle="tab" aria-controls="cready">College readiness</a></li>
 				</ul>
 			</li>
 			<li role="presentation" class="dropdown"><a href="#" aria-controls="Grade" role="dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">By Grade <span class="caret"></span></a>
@@ -70,31 +93,60 @@
 					<li role="presentation" class="list-6"><a href="#moreTabs-6" role="tab" data-toggle="tab" aria-controls="6th">6th</a></li>
 					<li role="presentation" class="list-7"><a href="#moreTabs-7" role="tab" data-toggle="tab" aria-controls="7th">7th</a></li>
 					<li role="presentation" class="list-8"><a href="#moreTabs-8" role="tab" data-toggle="tab" aria-controls="8th">8th</a></li>
-					<li role="presentation" class="list-11"><a href="#moreTabs-11" role="tab" data-toggle="tab" aria-controls="11th">11th</a></li>
-					<!--<li role="presentation"><a href="#perctest" role="tab" data-toggle="tab" aria-controls="perctest">% not tested</a></li>-->
+					<li role="presentation" class="list-11"><a href="#moreTabs-11" role="tab" data-toggle="tab" aria-controls="11th">H.S.</a></li>
+					<li role="presentation"><a href="#perctest" role="tab" data-toggle="tab" aria-controls="perctest">% tested/not tested</a></li>
 				</ul>
 			</li>
 		</ul>
 		
 		<div class="tab-content">
 			<div id="ISATcharts" role="tabpanel" class="tab-pane" >
-				<h3>Elementary school results<small> | 2013-2014 school year. 2014-2015 results are not yet available.</small></h3>
+				<h3>Elementary school results<small> | <strong style="color:red">NEW: </strong>2014-2015 school year.</small></h3>
 				<div class="wdth97" id="ISATnote"></div>
+				<div class="wdth97">
+					<div class="bar schmeCO"></div> School met/exceeds | <div class="bar schappCO"></div> School approaching<br>
+				<div class="bar stmeCO"></div> State met/exceeds | <div class="bar stappCO"></div> State approaching<br>
+				</div>
 				<div class="wdth97" id="ISATyears"></div>
+				<div class="wdth97" id="ISATnote2"></div>
 	        </div>
 			<div id="elemPersp" role="tabpanel" class="tab-pane" >
-				<h3><small>For the 2013-2014 school year. 2014-2015 results are not yet available.</small></h3>
-				<p><strong>IN THIS TAB:</strong> Scroll down for Elementary school Poverty-Achievement Index and number of schools with similar scores.</p>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 	        	<div id="elempaidiv" class="clearfix ">
         			<div class="schact">
 	        			<div id="PAInote"></div>
 	        			<div id="PAIyears"></div>
+	        			<div id="PAInote2"></div>
 	        		</div>
         			<div class="wdth97">
 						<div id="ISATnoteRANGE"></div>
 						<div id="ISATrange"></div>
 					</div>
  				</div>
+	        </div>
+			<div id="HScharts" role="tabpanel" class="tab-pane" >
+				<h3>High school results<small> | <strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
+	        	<div class="wdth97" id="HSnote"></div>
+	        	<div class="wdth97">
+					<div class="bar schmeCO"></div> School met/exceeds | <div class="bar schappCO"></div> School approaching<br>
+				<div class="bar stmeCO"></div> State met/exceeds | <div class="bar stappCO"></div> State approaching<br>
+				</div>
+				<div class="wdth97" id="HSyears"></div>
+	        	<div class="wdth97" id="HSnote2"></div>
+	        </div>
+			<div id="hsPersp" role="tabpanel" class="tab-pane" >
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
+        		<div id="hspaidiv" class="clearfix">
+        			<div class="schact">
+			        	<div id="hsPAInote"></div>
+						<div id="hsPAIyears"></div>
+			        	<div id="hsPAInote2"></div>
+	        		</div>
+        			<div class="wdth97">
+			        	<div id="HSnoteRANGE"></div>
+						<div id="HSrange"></div>
+					</div>
+				</div>
 	        </div>
 			<div id="ACTcharts" role="tabpanel" class="tab-pane" >
 				<h3>ACT results<small> | <strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
@@ -113,56 +165,39 @@
 				<h3>Graduation and college readiness<small> | <strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="collegeReady"></div>
 			</div>
-			<div id="HScharts" role="tabpanel" class="tab-pane" >
-				<h3>High school results<small> | For the 2013-2014 school year. 2014-2015 results are not yet available.</small></h3>
-	        	<div class="wdth97" id="HSnote"></div>
-				<div class="wdth97" id="HSyears"></div>
-	        </div>
-			<div id="hsPersp" role="tabpanel" class="tab-pane" >
-				<h3><small>For the 2013-2014 school year. 2014-2015 results are not yet available.</small></h3>
-				<p><strong>IN THIS TAB:</strong> Scroll down for high school Poverty-Achievement Index and number of schools with similar scores.</p>
-        		<div id="hspaidiv" class="clearfix">
-        			<div class="schact">
-			        	<div id="hsPAInote"></div>
-						<div id="hsPAIyears"></div>
-	        		</div>
-        			<div class="wdth97">
-			        	<div id="HSnoteRANGE"></div>
-						<div id="HSrange"></div>
-					</div>
-				</div>
-	        </div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-3">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-3a"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-4">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-4a"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-5">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-5a"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-6">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-6a"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-7">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-7a"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-8">
+				<div class="wdth97 table-responsive" id="moreTabs-8alg"></div>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-8a"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="moreTabs-11">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="moreTabs-11a"></div>
 			</div>
-			<!--<div role="tabpanel" class="tab-pane" id="perctest">
-				<h3><small>For the 2013-2014 school year. PARCC results for 2014-2015 are not yet available.</small></h3>
+			<div role="tabpanel" class="tab-pane" id="perctest">
+				<h3><small><strong style="color:red">NEW: </strong>For the 2014-2015 school year.</small></h3>
 				<div class="wdth97 table-responsive" id="perctesta"></div>
-			</div>-->
+			</div>
 	    </div>
 	</div>
 </div>

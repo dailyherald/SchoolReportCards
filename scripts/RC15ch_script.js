@@ -6,7 +6,8 @@ $( document ).ready( function() {
   } else
   console.log(getID);
   $('#loaded').hide();
-  $.getJSON('/SchoolReportCards15/RC2015/getSchool.php?term=' + getID, function(json){
+//  $.getJSON('/SchoolReportCards15/RC2015/getSchool.php?term=' + getID, function(json){
+  $.getJSON('RC2015/getSchool.php?term=' + getID, function(json){
     var logID = json[0].schid;
     var logSCHOOL = json[0].facilityname;
         console.log("school = " + json[0].facilityname);
@@ -136,85 +137,118 @@ if(json[0].me2014schoolpsae != '--'){
 // High school scores
 
   var chartHS = new Highcharts.Chart({
-        chart: {
+    chart: {
       renderTo: 'HSyears',
       height: 375,
       spacingBottom: 15,
       spacingTop: 10,
       spacingLeft: 10,
       spacingRight: 10,
-            type: 'line'
+      type: 'column'
         },
         title: {
-            text: null,
+            text: null
         },
         legend: {
             enabled: false
         },
         xAxis: {
-            categories: ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015'],
-              labels: {
-                staggerLines: 2
+          plotLines: [{
+            color: 'red',
+            value: 3.5,
+            width: 2    
+          }],
+            categories: ['2011', '2012', '2013', '2014','<strong>2015</strong><br><strong>PARCC</strong>'],
+            labels: {
+              staggerLines: 2
             }
         },
         yAxis: {
-      min: 0,
-      max: 100,
-            title: {
-                text: 'High school % meets/exceeds'
-            }
+            min: 0,
+            max: 100,
+                  title: {
+                      text: 'High School % meets/exceeds'
+                  }
         },
-        series: [{
-            name: 'State PSAE',
-            data: $.map([json[0].me2006statepsae, json[0].me2007statepsae, json[0].me2008statepsae, json[0].me2009statepsae, json[0].me2010statepsae, json[0].me2011statepsae, json[0].me2012statepsae, json[0].me2013statepsae, json[0].me2014statepsae, '--'], function (valuePSATsta) {
-                return isNaN(valuePSATsta) ? { y: null } : parseFloat(valuePSATsta);
-            })
-          }, {  
-            name: 'District PSAE',
-            data: $.map([json[0].me2006districtpsae, json[0].me2007districtpsae, json[0].me2008districtpsae, json[0].me2009districtpsae, json[0].me2010districtpsae, json[0].me2011districtpsae, json[0].me2012districtpsae, json[0].me2013districtpsae, json[0].me2014districtpsae, '--'], function (valuePSATdis) {
-                return isNaN(valuePSATdis) ? { y: null } : parseFloat(valuePSATdis);
-            })
-          }, {  
-      name: 'School PSAE',
-            data: $.map([json[0].me2006schoolpsae, json[0].me2007schoolpsae, json[0].me2008schoolpsae, json[0].me2009schoolpsae, json[0].me2010schoolpsae, json[0].me2011schoolpsae, json[0].me2012schoolpsae, json[0].me2013schoolpsae, json[0].me2014schoolpsae, '--'], function (valuePSATsch) {
-                return isNaN(valuePSATsch) ? { y: null } : parseFloat(valuePSATsch);
-            })
-        },{
-            type: 'line',
-            name: 'State PARCC',
-            data: $.map(['--', '--', '--', '--', '--', '--', '--', '--', '--', '--'], function (valueHSsta) {
-                return isNaN(valueHSsta) ? { y: null } : parseFloat(valueHSsta);
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+              }
+            },
+        series: [
+          {
+            type: 'column',
+            name: 'School PSAE app',
+            data: $.map(['--', '--', '--', '--', '--'], function (valuePSAEsch) {
+                return isNaN(valuePSAEsch) ? { y: null } : parseFloat(valuePSAEsch);
             }),
-            color: '#2f7ed8',
-            marker: {
-              symbol: 'circle'
-            }
-          }, {  
-            type: 'line',
-            name: 'District PARCC',
-            data: $.map(['--', '--', '--', '--', '--', '--', '--', '--', '--', '--'], function (valueHSdis) {
-                return isNaN(valueHSdis) ? { y: null } : parseFloat(valueHSdis);
-           }),
-            color: '#89a54e',
-            marker: {
-              symbol: 'diamond'
-            }
-          }, {  
-            type: 'line',
-            name: 'School PARCC',
-            data: $.map(['--', '--', '--', '--', '--', '--', '--', '--', '--', '--'], function (valueHSsch) {
+            stack: 'School',
+             color: '#86B6EC'
+         },{
+            type: 'column',
+            name: 'School PSAE M/E',
+            data: $.map([json[0].me2011schoolpsae, json[0].me2012schoolpsae, json[0].me2013schoolpsae, json[0].me2014schoolpsae, '--'], function (valuePSAEsch) {
+                return isNaN(valuePSAEsch) ? { y: null } : parseFloat(valuePSAEsch);
+            }),
+            stack: 'School',
+            color: '#2f7ed8'
+          },{
+            type: 'column',
+            name: 'State PSAE app',
+            data: $.map(['--', '--', '--', '--', '--'], function (valuePSAEsch) {
+                return isNaN(valuePSAEsch) ? { y: null } : parseFloat(valuePSAEsch);
+            }),
+            stack: 'State',
+            color: '#B7D27F'
+          },{
+            type: 'column',
+            name: 'State PSAE M/E',
+            data: $.map([json[0].me2011statepsae, json[0].me2012statepsae, json[0].me2013statepsae, json[0].me2014statepsae, '--'], function (valuePSAEsch) {
+                return isNaN(valuePSAEsch) ? { y: null } : parseFloat(valuePSAEsch);
+            }),
+            stack: 'State',
+            color: '#89a54e'
+          },{  
+            type: 'column',
+            name: 'School<br>approaching',
+            data: $.map(['--', '--', '--', '--', json[0].me2015schAPP], function (valueHSsch) {
                 return isNaN(valueHSsch) ? { y: null } : parseFloat(valueHSsch);
             }),
-            color: '#C65453',
-            marker: {
-              symbol: 'square'
-            }
-        }],
+            stack: 'School',
+            color: '#86B6EC'
+           },{ 
+            type: 'column',
+            name: 'School M/E',
+            data: $.map(['--', '--', '--', '--', json[0].me2015school], function (valueHSsch) {
+                return isNaN(valueHSsch) ? { y: null } : parseFloat(valueHSsch);
+            }),
+            stack: 'School',
+            color: '#2f7ed8'
+        }, {  
+            type: 'column',
+            name: 'State<br>approaching',
+            data: $.map(['--', '--', '--', '--', json[0].me2015stateAPP], function (valueHSsch) {
+                return isNaN(valueHSsch) ? { y: null } : parseFloat(valueHSsch);
+            }),
+            stack: 'State',
+            color: '#B7D27F'
+           },{ 
+            type: 'column',
+            name: 'State M/E',
+            data: $.map(['--', '--', '--', '--', json[0].me2015state], function (valueHSsch) {
+                return isNaN(valueHSsch) ? { y: null } : parseFloat(valueHSsch);
+            }),
+            stack: 'State',
+            color: '#89a54e'
+        }
+        ],
         tooltip: {
           crosshairs: true,
-          shared: true
+          shared: false,
+          valueSuffix: '%'
         },
     });
+
 
 
 // Here's a placeholder graphic for the HS PA index
@@ -316,15 +350,15 @@ if(json[0].me2014schoolisat != '--' || json[0].me2013schoolisat != '--' ){
 			'<p class="Ppadding"><strong>For the school, district and state since the 2006-\'07 school year.</strong> The large drop in 2013 results were affected by the state raising the minimum ISAT score students needed to achieve a rating of "meets expectations." Actual scores did not necessarily drop, but those scores may not have met the new "cut" score.</p>'
 			);
 
-	var chartISAT = new Highcharts.Chart({
-        chart: {
-			renderTo: 'ISATyears',
-			height: 375,
-			spacingBottom: 15,
-			spacingTop: 10,
-			spacingLeft: 10,
-			spacingRight: 10,
-            type: 'line'
+  var chartISAT = new Highcharts.Chart({
+    chart: {
+      renderTo: 'ISATyears',
+      height: 375,
+      spacingBottom: 15,
+      spacingTop: 10,
+      spacingLeft: 10,
+      spacingRight: 10,
+      type: 'column'
         },
         title: {
             text: null
@@ -333,76 +367,104 @@ if(json[0].me2014schoolisat != '--' || json[0].me2013schoolisat != '--' ){
             enabled: false
         },
         xAxis: {
-        	plotBands: [{
-        		from: 6.5,
-        		to: 8.5,
-        		color: '#e1e1e1'
-        	}],
-            categories: ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014','2015'],
+          plotLines: [{
+            color: 'red',
+            value: 3.5,
+            width: 2    
+          }],
+         plotBands: [{
+            from: 1.5,
+            to: 3.5,
+            color: '#e1e1e1'
+          }],
+            categories: ['2011', '2012', '2013', '2014','<strong>2015</strong><br><strong>PARCC</strong>'],
             labels: {
-            	staggerLines: 2
+              staggerLines: 2
             }
         },
         yAxis: {
-			min: 0,
-			max: 100,
-            title: {
-                text: 'Elementary % meets/exceeds'
-            }
+            min: 0,
+            max: 100,
+                  title: {
+                      text: 'Elementary % meets/exceeds'
+                  }
         },
-        series: [{
-            type: 'line',
-            name: 'State ISAT',
-            data: $.map([json[0].me2006stateisat, json[0].me2007stateisat, json[0].me2008stateisat, json[0].me2009stateisat, json[0].me2010stateisat, json[0].me2011stateisat, json[0].me2012stateisat, json[0].me2013stateisat, json[0].me2014stateisat, '--'], function (valueISATsta) {
-                return isNaN(valueISATsta) ? { y: null } : parseFloat(valueISATsta);
-            })
-          }, {  
-            type: 'line',
-            name: 'District ISAT',
-            data: $.map([json[0].me2006districtisat, json[0].me2007districtisat, json[0].me2008districtisat, json[0].me2009districtisat, json[0].me2010districtisat, json[0].me2011districtisat, json[0].me2012districtisat, json[0].me2013districtisat, json[0].me2014districtisat, '--'], function (valueISATdis) {
-                return isNaN(valueISATdis) ? { y: null } : parseFloat(valueISATdis);
-           })
-          }, {  
-            type: 'line',
-            name: 'School ISAT',
-            data: $.map([json[0].me2006schoolisat, json[0].me2007schoolisat, json[0].me2008schoolisat, json[0].me2009schoolisat, json[0].me2010schoolisat, json[0].me2011schoolisat, json[0].me2012schoolisat, json[0].me2013schoolisat, json[0].me2014schoolisat, '--'], function (valueISATsch) {
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+              }
+            },
+        series: [
+          {
+            type: 'column',
+            name: 'School ISAT app',
+            data: $.map(['--', '--', '--', '--', '--'], function (valueISATsch) {
                 return isNaN(valueISATsch) ? { y: null } : parseFloat(valueISATsch);
-            })
-          },{
-            type: 'line',
-            name: 'State PARCC',
-            data: $.map(['--', '--', '--', '--', '--', '--', '--', '--', '--', '--'], function (valueELEMsta) {
-                return isNaN(valueELEMsta) ? { y: null } : parseFloat(valueELEMsta);
             }),
-            color: '#2f7ed8',
-            marker: {
-              symbol: 'circle'
-            }
-          }, {  
-            type: 'line',
-            name: 'District PARCC',
-            data: $.map(['--', '--', '--', '--', '--', '--', '--', '--', '--', '--'], function (valueELEMdis) {
-                return isNaN(valueELEMdis) ? { y: null } : parseFloat(valueELEMdis);
-           }),
-            color: '#89a54e',
-            marker: {
-              symbol: 'diamond'
-            }
-          }, {  
-            type: 'line',
-            name: 'School PARCC',
-            data: $.map(['--', '--', '--', '--', '--', '--', '--', '--', '--', '--'], function (valueELEMsch) {
+            stack: 'School',
+             color: '#86B6EC'
+         },{
+            type: 'column',
+            name: 'School ISAT M/E',
+            data: $.map([json[0].me2011schoolisat, json[0].me2012schoolisat, json[0].me2013schoolisat, json[0].me2014schoolisat, '--'], function (valueISATsch) {
+                return isNaN(valueISATsch) ? { y: null } : parseFloat(valueISATsch);
+            }),
+            stack: 'School',
+            color: '#2f7ed8'
+          },{
+            type: 'column',
+            name: 'State ISAT app',
+            data: $.map(['--', '--', '--', '--', '--'], function (valueISATsch) {
+                return isNaN(valueISATsch) ? { y: null } : parseFloat(valueISATsch);
+            }),
+            stack: 'State',
+            color: '#B7D27F'
+          },{
+            type: 'column',
+            name: 'State ISAT M/E',
+            data: $.map([json[0].me2011stateisat, json[0].me2012stateisat, json[0].me2013stateisat, json[0].me2014stateisat, '--'], function (valueISATsch) {
+                return isNaN(valueISATsch) ? { y: null } : parseFloat(valueISATsch);
+            }),
+            stack: 'State',
+            color: '#89a54e'
+          },{  
+            type: 'column',
+            name: 'School<br>approaching',
+            data: $.map(['--', '--', '--', '--', json[0].me2015schAPP], function (valueELEMsch) {
                 return isNaN(valueELEMsch) ? { y: null } : parseFloat(valueELEMsch);
             }),
-            color: '#C65453',
-            marker: {
-              symbol: 'square'
-            }
-        }],
+            stack: 'School',
+            color: '#86B6EC'
+           },{ 
+            type: 'column',
+            name: 'School M/E',
+            data: $.map(['--', '--', '--', '--', json[0].me2015school], function (valueELEMsch) {
+                return isNaN(valueELEMsch) ? { y: null } : parseFloat(valueELEMsch);
+            }),
+            stack: 'School',
+            color: '#2f7ed8'
+        }, {  
+            type: 'column',
+            name: 'State<br>approaching',
+            data: $.map(['--', '--', '--', '--', json[0].me2015stateAPP], function (valueELEMsch) {
+                return isNaN(valueELEMsch) ? { y: null } : parseFloat(valueELEMsch);
+            }),
+            stack: 'State',
+            color: '#B7D27F'
+           },{ 
+            type: 'column',
+            name: 'State M/E',
+            data: $.map(['--', '--', '--', '--', json[0].me2015state], function (valueELEMsch) {
+                return isNaN(valueELEMsch) ? { y: null } : parseFloat(valueELEMsch);
+            }),
+            stack: 'State',
+            color: '#89a54e'
+        }
+        ],
         tooltip: {
-        	crosshairs: true,
-        	shared: true,
-        	valueSuffix: '%'
+          crosshairs: true,
+          shared: false,
+          valueSuffix: '%'
         },
     });
 
